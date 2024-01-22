@@ -58,7 +58,8 @@ Directory structure of the web app is as follows:
 
 Details of the machine on which the webapp was tested:
 
-- Operating System: Elementary OS 5.1 (Hera)
+- Operating System: Window 11
 - Terminal: Bash
-- Processor: Intel Core i7-8750H CPU @ 2.20 GHz 2.21 GHz
+- Processor: Intel Core i5 11th Gen i5-11320H
+- Graphics Processor:	Intel Iris Xe
 - RAM: 16 GB
