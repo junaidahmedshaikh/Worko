@@ -1,0 +1,419 @@
+/* <style> */
+@import url("https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Overpass:wght@500&family=Roboto&family=Rubik&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Lato&display=swap");
+/* </style> */
+* {
+  /* font-size: 62.2%; */
+  margin: 0;
+  padding: 0;
+}
+:root {
+  --heading-font: "Bebas Neue", sans-serif;
+  --subheading-font: "Overpass", sans-serif;
+  --para-heading: "Rubik", sans-serif;
+  --h1-font: "Lato", sans-serif;
+
+  /* --primary-color: #3559E0; */
+  /* --primary-color: #39A7FF; */
+  --primary-color: #407ff0;
+  --font-color: ##6497f2;
+  --light-primary-color: #e7effd;
+  --secondary-bg-color: #f6f9fc;
+  --hover-color: #e7effd;
+  --bg-color: #f8f9fa;
+  --box-color: #ffffff;
+  --box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+  /* --card-font-color: #060a16; */
+  /* --card-sub-font-color: #4a4f65; */
+  --card-font-color: #121224;
+  --card-sub-font-color: #474d6a;
+  --card-sec-font-color: #4a4f65;
+}
+body {
+  background-color: var(--bg-color);
+}
+/* Main Grid */
+.mainGridContainer {
+  width: 90%;
+  /* background-color: #060a16; */
+}
+.boxOfContent {
+  padding: 2rem;
+  background-color: var(--box-color);
+  border-radius: 1rem;
+  min-height: 50vh;
+}
+/* .createJobsGrid{
+  padding: 10rem;
+} */
+/* All Heading Css */
+.personalSection {
+  background-color: var(--box-color);
+  font-family: var(--subheading-font);
+  margin: 1rem 0;
+  padding: 2rem 1rem;
+  border-radius: 1rem;
+  border: 2px solid #4a4f651e;
+}
+
+.primaryHeading {
+  font-size: 4em;
+  font-family: var(--heading-font);
+}
+.mainHeading {
+  font-size: 2rem;
+  font-weight: 500;
+  margin: 3rem 0;
+  font-family: var(--subheading-font);
+}
+/* Card Section */
+.cardTitle {
+  color: var(--card-font-color);
+  font-weight: 500;
+  font-size: 1.5rem;
+}
+.cardSubTitle {
+  color: var(--card-sub-font-color);
+  font-size: 14px;
+  font-weight: 400;
+  font-family: var(--subheading-font);
+}
+/* .cardSubTitle span {
+  margin: 5px 5px 5px 0; 
+   margin-right: 15px;
+} */
+.cardForMyJobs {
+  padding: 2rem 1rem;
+  box-shadow: none;
+  border-bottom: 2px solid var(--card-sub-font-color);
+  display: grid;
+  grid-template-columns: 2fr 0.5fr;
+  box-shadow: none;
+}
+/* All Button CSS */
+.primaryButton {
+  width: 100%;
+  padding-top: 0.75rem;
+  padding-bottom: 0.75rem;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+  margin-right: 0.75rem;
+  border-radius: 0.5rem;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji",
+    "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  font-size: 0.75rem;
+  line-height: 1rem;
+  font-weight: 700;
+  color: #ffffff;
+  text-transform: uppercase;
+  background-color: #3b82f6;
+  background-image: linear-gradient(to top right, var(--tw-gradient-stops));
+  transition-property: all;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 300ms;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+    0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+/* 
+.primaryButton {
+  appearance: button;
+  backface-visibility: hidden;
+  background-color: #3c95f7;
+  border-radius: 6px;
+  border-width: 0;
+  box-shadow: rgba(50, 50, 93, .1) 0 0 0 1px inset,rgba(50, 50, 93, .1) 0 2px 5px 0,rgba(0, 0, 0, .07) 0 1px 1px 0;
+  box-sizing: border-box;
+  color: #fff;
+  cursor: pointer;
+  font-family: -apple-system,system-ui,"Segoe UI",Roboto,"Helvetica Neue",Ubuntu,sans-serif;
+  font-size: 100%;
+  height: 44px;
+  line-height: 1.15;
+  margin: 12px 0 0;
+  outline: none;
+  overflow: hidden;
+  padding: 0 25px;
+  position: relative;
+  text-align: center;
+  text-transform: none;
+  transform: translateZ(0);
+  transition: all .2s,box-shadow .08s ease-in;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  width: auto;
+} */
+
+.primaryButton:disabled {
+  cursor: default;
+}
+.primaryButton:hover {
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
+    0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+.primaryButton:focus {
+  box-shadow: rgba(50, 50, 93, 0.1) 0 0 0 1px inset,
+    rgba(50, 50, 93, 0.2) 0 6px 15px 0, rgba(0, 0, 0, 0.1) 0 2px 2px 0,
+    rgba(50, 151, 211, 0.3) 0 0 0 4px;
+}
+.secondaryButton {
+  width: 100%; 
+padding-top: 0.75rem;
+padding-bottom: 0.75rem; 
+padding-left: 1.5rem;
+padding-right: 1.5rem; 
+margin-right: 0.75rem; 
+border-radius: 0.5rem; 
+border-width: 1px; 
+font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji"; 
+font-size: 0.75rem;
+line-height: 1rem; 
+font-weight: 700; 
+color: #3B82F6; 
+text-transform: uppercase; 
+transition-property: all;
+transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+transition-duration: 300ms; 
+ display: flex;
+ justify-content: center;
+ align-items: center;
+ padding: none;
+}
+.buttonForCard {
+  padding: 17px 35px;
+  outline: none;
+  text-decoration: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  border-radius: 10px;
+  font-weight: 400;
+  width: auto;
+}
+/* All Input CSS  */
+
+input,
+.MuiInputBase-input {
+  width: 100%;
+  height: 45px;
+  line-height: 30px;
+  padding: 0 5rem;
+  padding-left: 2rem;
+  border: 2px solid transparent;
+  border-radius: 16px !important;
+  outline: none;
+  background-color: #f8fafc;
+  color: #0d0c22;
+  transition: 0.5s ease;
+}
+
+input::placeholder {
+  color: #94a3b8;
+}
+
+input:focus,
+input:hover {
+  outline: none;
+  border-color: rgba(129, 140, 248);
+  background-color: #fff;
+  box-shadow: 0 0 0 5px rgb(129 140 248 / 30%);
+}
+
+/* Navigation Stylesheets */
+.MuiToolbar-regular {
+  min-height: 64px;
+  color: var(--primary-color);
+  background: #f6f9fc;
+  height: 70px;
+  outline: none;
+}
+.MuiAppBar-colorPrimary {
+  background-color: transparent;
+}
+.MuiPaper-elevation4 {
+  box-shadow: none;
+}
+.MuiToolbar-gutters {
+  padding: 40px;
+}
+
+#logoInNavbar {
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+.navbarBtn {
+  border-radius: 0.5rem;
+  font-weight: 600;
+  margin: 0 0.5rem;
+  padding: 0.5rem 1rem;
+}
+.navbarBtn:focus {
+  outline: none;
+}
+#signupBtn {
+  background-color: var(--primary-color);
+  color: white;
+  border-radius: 50px;
+  cursor: pointer;
+  height: 3rem;
+  width: 6rem;
+  transition: all 0.5s;
+}
+#signupBtn:hover {
+  background-color: var(--hover-color);
+}
+#navigation-bar {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-content: center;
+  outline: none;
+}
+
+.middle-side-of-navbar {
+  display: flex;
+  /* background-color: antiquewhite; */
+  justify-content: center;
+}
+.middle-side-of-navbar button {
+  padding: 0.5rem 1rem;
+  font-weight: 500;
+  border-radius: 2rem;
+  margin: 0 0.5rem;
+}
+/* .middle-side-of-navbar button:hover{
+  border-bottom: 2px solid var(--hover-color);
+} */
+.right-side-of-navbar {
+  display: flex;
+  justify-content: end;
+}
+/* Login Style */
+.loginSection {
+  background-color: transparent;
+  padding: 4rem 3rem;
+  transition: all 0.5s;
+}
+.loginSection:hover {
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+}
+
+.loginHeading {
+  font-size: 3rem;
+  font-family: var(--heading-font);
+  font-weight: 600;
+}
+
+.makeStyles-inputBox-7 {
+  width: 300px;
+  height: 50px;
+  /* border-radius: 0.8rem; */
+}
+.userbutton {
+  padding: 1rem 2rem;
+  background-color: var(--primary-color);
+  color: white;
+  border-radius: 1rem;
+  font-family: var(--para-heading);
+  font-weight: 600;
+  border: none;
+}
+.userButton:hover {
+  background-color: var(--hover-color);
+}
+
+/* Signup Section */
+.makeStyles-body-5 {
+  padding: 40px 30px;
+}
+
+/* Welcome Section */
+.homeBtn {
+  background-color: var(--primary-color);
+  font-family: var(--subheading-font);
+  position: relative;
+  outline: none;
+  border-radius: 50px;
+  cursor: pointer;
+  height: 3.5rem;
+  width: 7rem;
+}
+.homeBtn:hover {
+  background-color: #2c65ce;
+}
+
+/* Home Section */
+
+/* Profile Style */
+.file-upload-btn {
+  background-color: #2c65ce;
+}
+.profileSectionUserDetail {
+  margin: 1rem 0 0 0;
+  color: #060a16ba;
+  font-family: var(--h1-font);
+}
+.profileCards{
+  background-color: var(--box-color);
+  padding: 1rem 1rem;
+  border-radius: 1rem;
+  border: 2px solid #4a4f651e;
+  margin: 1rem 0;
+}
+.profileCardsHeader{
+  display: flex;
+  justify-items: center;
+}
+.profileCardsHeading{
+  font-family: 'Poppins', sans-serif;
+  font-weight: 600;
+  font-size: 1rem;
+  color: #121224;
+/* font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";  */
+  margin: 1rem 0;
+}
+.profileCardsSubHeading{
+  font-family: 'Poppins', sans-serif;
+  font-weight: 400;
+  font-size: 1rem;
+  color: #121224;
+/* font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";  */
+  margin: 1rem 0;
+}
+.profileCardsSubPara{
+  font-family: 'Poppins', sans-serif;
+  font-weight: 500;
+  font-size: 1rem;
+  color: var(--card-sec-font-color);
+  /* color: #2c65ce; */
+/* font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";  */
+  margin: 1rem 0;
+}
+.profileCardsHeaderIcons{
+  display: flex;
+  align-items: center;
+}
+.profileCardsHeaderIcons i{
+  margin: 0 1rem;
+  font-size: .8rem;
+}
+.profileCardsFooter{
+  color: #474d6a;
+  font-weight: 400;
+  font-family: 'Poppins', sans-serif;
+}
+.profileSectionHeaderList {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 600;
+  font-size: 1rem;
+  color: #121224;
+}
+.profileCardsSkills{
+  border-radius: 1.5rem;
+  margin-right: 1.25rem;
+  border: 1px solid #e7e7f1;;
+  margin-right: 1rem;
+  padding: 4.5px 8px;
+}
+/* Job card in ApplicantSection */
