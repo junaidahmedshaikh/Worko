@@ -17,99 +17,103 @@ import AcceptedApplicants from "./component/recruiter/AcceptedApplicants";
 import RecruiterProfile from "./component/recruiter/Profile";
 import MessagePopup from "./lib/MessagePopup";
 import isAuth, { userType } from "./lib/isAuth";
+import Course from "./component/Course";
 
 const useStyles = makeStyles((theme) => ({
-    body: {
-        display: "flex",
-        flexDirection: "column",
-        justifyContent: "center",
-        alignItems: "center",
-        minHeight: "98vh",
-        paddingTop: "64px",
-        boxSizing: "border-box",
-        width: "100%",
-    },
+  body: {
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "center",
+    alignItems: "center",
+    minHeight: "98vh",
+    paddingTop: "64px",
+    boxSizing: "border-box",
+    width: "100%",
+  },
 }));
 
 export const SetPopupContext = createContext();
 
 function App() {
-    const classes = useStyles();
-    const [popup, setPopup] = useState({
-        open: false,
-        severity: "",
-        message: "",
-    });
-    return (
-        <BrowserRouter>
-            <SetPopupContext.Provider value={setPopup}>
-                <Grid container direction="column">
-                    <Grid item xs>
-                        <Navbar />
-                    </Grid>
-                    <Grid item className={classes.body}>
-                        <Switch>
-                            <Route exact path="/">
-                                {userType() === "recruiter" ? (
-                                    <Welcome type="recruiter" />
-                                ) : (
-                                    <Welcome type="applicant" />
-                                )}
-                            </Route>
-                            <Route exact path="/login">
-                                <Login />
-                            </Route>
-                            <Route exact path="/signup">
-                                <Signup />
-                            </Route>
-                            <Route exact path="/logout">
-                                <Logout />
-                            </Route>
-                            <Route exact path="/home">
-                                <Home />
-                            </Route>
-                            <Route exact path="/applications">
-                                <Applications />
-                            </Route>
-                            <Route exact path="/profile">
-                                {userType() === "recruiter" ? (
-                                    <RecruiterProfile />
-                                ) : (
-                                    <Profile />
-                                )}
-                            </Route>
-                            <Route exact path="/addjob">
-                                <CreateJobs />
-                            </Route>
-                            <Route exact path="/myjobs">
-                                <MyJobs />
-                            </Route>
-                            <Route exact path="/job/applications/:jobId">
-                                <JobApplications />
-                            </Route>
-                            <Route exact path="/employees">
-                                <AcceptedApplicants />
-                            </Route>
-                            <Route>
-                                <ErrorPage />
-                            </Route>
-                        </Switch>
-                    </Grid>
-                </Grid>
-                <MessagePopup
-                    open={popup.open}
-                    setOpen={(status) =>
-                        setPopup({
-                            ...popup,
-                            open: status,
-                        })
-                    }
-                    severity={popup.severity}
-                    message={popup.message}
-                />
-            </SetPopupContext.Provider>
-        </BrowserRouter>
-    );
+  const classes = useStyles();
+  const [popup, setPopup] = useState({
+    open: false,
+    severity: "",
+    message: "",
+  });
+  return (
+    <BrowserRouter>
+      <SetPopupContext.Provider value={setPopup}>
+        <Grid container direction="column">
+          <Grid item xs>
+            <Navbar />
+          </Grid>
+          <Grid item className={classes.body}>
+            <Switch>
+              <Route exact path="/">
+                {userType() === "recruiter" ? (
+                  <Welcome type="recruiter" />
+                ) : (
+                  <Welcome type="applicant" />
+                )}
+              </Route>
+              <Route exact path="/login">
+                <Login />
+              </Route>
+              <Route exact path="/signup">
+                <Signup />
+              </Route>
+              <Route exact path="/logout">
+                <Logout />
+              </Route>
+              <Route exact path="/home">
+                <Home />
+              </Route>
+              <Route exact path="/applications">
+                <Applications />
+              </Route>
+              <Route exact path="/profile">
+                {userType() === "recruiter" ? (
+                  <RecruiterProfile />
+                ) : (
+                  <Profile />
+                )}
+              </Route>
+              <Route exact path="/courses">
+                <Course />
+              </Route>
+              <Route exact path="/addjob">
+                <CreateJobs />
+              </Route>
+              <Route exact path="/myjobs">
+                <MyJobs />
+              </Route>
+              <Route exact path="/job/applications/:jobId">
+                <JobApplications />
+              </Route>
+              <Route exact path="/employees">
+                <AcceptedApplicants />
+              </Route>
+              <Route>
+                <ErrorPage />
+              </Route>
+            </Switch>
+          </Grid>
+        </Grid>
+        <MessagePopup
+          open={popup.open}
+          setOpen={(status) =>
+            setPopup({
+              ...popup,
+              open: status,
+            })
+          }
+          severity={popup.severity}
+          message={popup.message}
+        />
+      </SetPopupContext.Provider>
+    </BrowserRouter>
+  );
 }
 
 export default App;
