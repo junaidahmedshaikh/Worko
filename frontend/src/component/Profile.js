@@ -121,8 +121,8 @@ const Profile = (props) => {
     resume: "",
     profile: "",
   });
-  console.log(profileDetails, "asfa");
 
+  console.log("🚀 ~ Profile ~ profileDetails:", profileDetails);
   const [education, setEducation] = useState([
     {
       institutionName: "",
@@ -248,14 +248,15 @@ const Profile = (props) => {
           <Paper item elevation={0} style={{ background: "transparent" }}>
             <Grid className="flex justify-between bg-transparent">
               <Grid item class="flex flex-cols py-10">
-                <div className="w-20 flex justify-items-center mr-5">
+                <div className="w-40 flex justify-items-center mr-5">
                   <img
-                    className="w-12/12 h-6/12 rounded-full"
-                    src={profileLink}
-                  ></img>
+                    className="w-40 h-40 p-1 rounded-full ring-2 ring-gray-300 dark:ring-gray-500 object-cover"
+                    src={profileDetails.profile}
+                    alt="Bordered avatar"
+                  />
                 </div>
-                <div className="flex flex-col">
-                  <h1 className="cardTitle">{firstName + " " + lastName}</h1>
+                <div className="flex flex-col mt-5">
+                  <h1 className="cardTitle">{profileDetails.name}</h1>
                   <h3 className="cardSubTitle">{companyName}</h3>
                   <div>
                     <a href="" class="text-black">
@@ -274,7 +275,10 @@ const Profile = (props) => {
                 </div>
               </Grid>
               <Grid item class="grid content-center">
-                <Button class="primaryButton h-10"> Edit Profile</Button>
+                <Button class="primaryButton h-10" onClick={editDetails}>
+                  {" "}
+                  Edit Profile
+                </Button>
               </Grid>
             </Grid>
             <Grid className="w-full bg-white py-5 px-10 rounded-lg">
@@ -283,7 +287,7 @@ const Profile = (props) => {
                 <Grid item className="profileCardsHeader">
                   <Typography class="profileCardsHeading">About Me</Typography>
                   <Grid item sm className="profileCardsHeaderIcons">
-                    <i class="fa-solid fa-pen"></i>
+                    {/* <i class="fa-solid fa-pen"></i> */}
                   </Grid>
                 </Grid>
 
@@ -311,7 +315,7 @@ const Profile = (props) => {
                   </Typography>
                   <Grid item sm className="profileCardsHeaderIcons">
                     {" "}
-                    <i class="fa-solid fa-pen"></i>{" "}
+                    {/* <i class="fa-solid fa-pen"></i>{" "} */}
                   </Grid>
                 </Grid>
                 <div className="flex my-5 ">
@@ -321,7 +325,7 @@ const Profile = (props) => {
                       First Name
                     </Typography>{" "}
                     <Typography className="profileCardsFooter">
-                      {firstName}
+                      {profileDetails.name}
                     </Typography>
                   </Grid>
                   <Grid xs className="flex flex-col mr-10">
@@ -330,7 +334,7 @@ const Profile = (props) => {
                       Last Name
                     </Typography>{" "}
                     <Typography className="profileCardsFooter">
-                      {lastName}
+                      Payne
                     </Typography>
                   </Grid>
                   <Grid xs className="flex flex-col mr-10">
@@ -358,7 +362,7 @@ const Profile = (props) => {
                 <Grid item className="profileCardsHeader">
                   <Typography class="profileCardsHeading">Skills</Typography>
                   <Grid item sm className="profileCardsHeaderIcons">
-                    <i class="fa-solid fa-pen"></i>
+                    {/* <i class="fa-solid fa-pen"></i> */}
                   </Grid>
                 </Grid>
                 <Grid item className="flex">
@@ -373,20 +377,21 @@ const Profile = (props) => {
                 <Grid item className="profileCardsHeader">
                   <Typography class="profileCardsHeading">Education</Typography>
                   <Grid item sm className="profileCardsHeaderIcons">
-                    <i class="fa-solid fa-pen"></i>
+                    {/* <i class="fa-solid fa-pen"></i> */}
                   </Grid>
                 </Grid>
                 {/* Main body of the card */}
                 <Grid item>
                   <Grid item sm className="profileCardsSubHeading">
-                    <span>M.Tech</span>
-                    <span> Information Technology</span>
+                    <span>{education.institutionName}</span>
+                    {/* <span> Information Technology</span> */}
                   </Grid>
                   <Grid item sm className="profileCardsSubHeading">
                     <span>St. Xaviers College, Mumbai</span>
                   </Grid>
                   <Grid item sm className="profileCardsSubPara">
-                    <span>2024-2030</span>
+                    <span>{education.startDate}</span>
+                    <span>{education.endDate}</span>
                   </Grid>
                 </Grid>
               </Grid>
@@ -396,12 +401,17 @@ const Profile = (props) => {
                 <Grid item sm className="profileCardsHeader">
                   <Typography class="profileCardsHeading">Projects</Typography>
                   <Grid item sm className="profileCardsHeaderIcons">
-                    <i class="fa-solid fa-pen"></i>
+                    {/* <i class="fa-solid fa-pen"></i> */}
                   </Grid>
                 </Grid>
                 {/* Main body of the card */}
-                <Grid item>
-                  <Grid item sm class="profileCardsSubHeading" style={{margin: "0px", fontSize: "17px"}}>
+                {/* <Grid item>
+                  <Grid
+                    item
+                    sm
+                    class="profileCardsSubHeading"
+                    style={{ margin: "0px", fontSize: "17px" }}
+                  >
                     <span>{projectDetails.projectName}</span>
                   </Grid>
                   <Grid item sm className="profileCardsSubHeading">
@@ -412,18 +422,123 @@ const Profile = (props) => {
                     {" to "}
                     <span>{projectDetails.projectEndDate}</span>
                   </Grid>
-                  <Grid item sm className="profileCardsSubHeading" style={{marginTop: "5px"}}>
+                  <Grid
+                    item
+                    sm
+                    className="profileCardsSubHeading"
+                    style={{ marginTop: "5px" }}
+                  >
                     <span>{projectDetails.projectDescription}</span>
                   </Grid>
-                </Grid>
+                </Grid> */}
               </Grid>
             </Grid>
           </Paper>
         </Grid>
       </Grid>
-      {/* <Modal open={open} onClose={handleClose} className={classes.popupDialog}> */}
-
-      {/* </Modal> */}
+      <Modal open={open} onClose={handleClose} className={classes.popupDialog}>
+        <Grid
+          container
+          item
+          direction="column"
+          alignItems="center"
+          style={{ padding: "30px", minHeight: "93vh" }}
+        >
+          <Grid item>
+            <Typography variant="h2">Profile</Typography>
+          </Grid>
+          <Grid item xs>
+            <Paper
+              style={{
+                padding: "20px",
+                outline: "none",
+                display: "flex",
+                flexDirection: "column",
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+            >
+              <Grid
+                container
+                direction="column"
+                alignItems="stretch"
+                spacing={3}
+              >
+                <Grid item>
+                  <TextField
+                    label="Name"
+                    value={profileDetails.name}
+                    onChange={(event) =>
+                      handleInput("name", event.target.value)
+                    }
+                    className={classes.inputBox}
+                    variant="outlined"
+                    fullWidth
+                  />
+                </Grid>
+                <MultifieldInput
+                  education={education}
+                  setEducation={setEducation}
+                />
+                <Grid item>
+                  <ChipInput
+                    className={classes.inputBox}
+                    label="Skills"
+                    variant="outlined"
+                    helperText="Press enter to add skills"
+                    value={profileDetails.skills}
+                    onAdd={(chip) =>
+                      setProfileDetails({
+                        ...profileDetails,
+                        skills: [...profileDetails.skills, chip],
+                      })
+                    }
+                    onDelete={(chip, index) => {
+                      let skills = profileDetails.skills;
+                      skills.splice(index, 1);
+                      setProfileDetails({
+                        ...profileDetails,
+                        skills: skills,
+                      });
+                    }}
+                    fullWidth
+                  />
+                </Grid>
+                <Grid item>
+                  <FileUploadInput
+                    className={classes.inputBox}
+                    label="Resume (.pdf)"
+                    icon={<DescriptionIcon />}
+                    uploadTo={apiList.uploadResume}
+                    handleInput={handleInput}
+                    identifier={"resume"}
+                    profileDetails={profileDetails}
+                  />
+                </Grid>
+                <Grid item>
+                  <FileUploadInput
+                    className={classes.inputBox}
+                    label="Profile Photo (.jpg/.png)"
+                    icon={<FaceIcon />}
+                    uploadTo={apiList.uploadProfileImage}
+                    handleInput={handleInput}
+                    identifier={"profile"}
+                    profileDetails={profileDetails}
+                  />
+                </Grid>
+              </Grid>
+              <Button
+                variant="contained"
+                color="primary"
+                style={{ padding: "10px 50px", marginTop: "30px" }}
+                onClick={() => handleUpdate()}
+              >
+                Update Details
+              </Button>
+            </Paper>
+          </Grid>
+        </Grid>
+      </Modal>
     </>
   );
 };

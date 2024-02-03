@@ -29,7 +29,6 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: "center",
     // padding: "30px",
   },
-  
 }));
 
 const Profile = (props) => {
@@ -42,10 +41,10 @@ const Profile = (props) => {
     contactNumber: "",
     companyName: "",
     emailID: "",
-
   });
 
   const [phone, setPhone] = useState("");
+  console.log("🚀 ~ Profile ~ profileDetails:", profileDetails);
 
   const handleInput = (key, value) => {
     setProfileDetails({
@@ -121,59 +120,121 @@ const Profile = (props) => {
   };
 
   // For Testing Purpose
-   const companyName = "companyName";
-   const startDate = "11/11/2022";
-   const endDate = "30/12/2023";
-   const jobTitle = "Frontend Developer";
-   const department = "Designer Department";
-   let firstName = profileDetails.name;
-   let lastName = "Shaikh";
-   let emailAddress = "junaid@gmail.com";
-   let phoneNo = 9859438294;
-   let profileLink = "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c1/Google_%22G%22_logo.svg/1024px-Google_%22G%22_logo.svg.png";
+  const companyName = "companyName";
+  const startDate = "11/11/2022";
+  const endDate = "30/12/2023";
+  const jobTitle = "Frontend Developer";
+  const department = "Designer Department";
+  let firstName = profileDetails.name;
+  let lastName = "Shaikh";
+  let emailAddress = "junaid@gmail.com";
+  let phoneNo = 9859438294;
+  let profileLink =
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c1/Google_%22G%22_logo.svg/1024px-Google_%22G%22_logo.svg.png";
   return (
-    
     <>
-      <Grid
-        container
-        className="mainGridContainer"
-      >
-       
-        <Grid  style={{ width: "100%", padding: "10px 100px" }}>
+      <Grid container className="mainGridContainer">
+        <Grid style={{ width: "100%", padding: "10px 100px" }}>
           <Paper className="w-full ">
             <Grid className="flex flex-cols bg-slate-400 py-10 dssss">
-              
-              <div className="w-20 flex justify-items-center mr-5">
-                <img className="w-12/12 h-6/12 rounded-full" src={profileLink}>
-                </img>
+              <div className="w-20 flex justify-items-center mr-5 ml-10">
+                <img
+                  className="w-12/12 h-6/12 rounded-full"
+                  src={profileLink}
+                ></img>
               </div>
-              <div className="flex flex-col" >
+              <div className="flex flex-col">
                 <h1 className="cardTitle">{profileDetails.name}</h1>
-                <h3 className="cardSubTitle">{companyName}</h3>
+                <h3 className="cardSubTitle">Recruitor</h3>
               </div>
             </Grid>
-             <Grid className="w-full bg-white py-5 px-10 rounded-lg">
-
-              <Grid className="personalSection"> 
+            <Grid className="w-full bg-white py-5 px-10 rounded-lg">
+              <Grid className="personalSection">
                 <Typography> Personal Information </Typography>
-                <div className="flex my-5 ">  
-                <Grid xs className="flex flex-col mr-10"> <Typography className="profileSectionHeaderList">Full Name</Typography> <Typography className="profileSectionUserDetail">{profileDetails.name}</Typography></Grid> 
-                {/* <Grid xs className="flex flex-col mr-10"> <Typography className="profileSectionHeaderList"></Typography> <Typography className="profileSectionUserDetail">{lastName}</Typography></Grid>  */}
-                <Grid xs className="flex flex-col mr-10"> <Typography className="profileSectionHeaderList">Email Address</Typography> <Typography className="profileSectionUserDetail">{profileDetails.emailID}</Typography></Grid> 
-                <Grid xs className="flex flex-col mr-10"> <Typography className="profileSectionHeaderList">Phone</Typography> <Typography className="profileSectionUserDetail">{profileDetails.contactNumber}</Typography></Grid> 
+                <div className="flex my-5 ">
+                  <Grid xs className="flex flex-col mr-10">
+                    {" "}
+                    <Typography className="profileSectionHeaderList">
+                      Full Name
+                    </Typography>{" "}
+                    <Typography className="profileSectionUserDetail">
+                      {profileDetails.name}
+                    </Typography>
+                  </Grid>
+                  {/* <Grid xs className="flex flex-col mr-10"> <Typography className="profileSectionHeaderList"></Typography> <Typography className="profileSectionUserDetail">{lastName}</Typography></Grid>  */}
+                  <Grid xs className="flex flex-col mr-10">
+                    {" "}
+                    <Typography className="profileSectionHeaderList">
+                      Email Address
+                    </Typography>{" "}
+                    <Typography className="profileSectionUserDetail">
+                      {profileDetails.emailID}
+                    </Typography>
+                  </Grid>
+                  <Grid xs className="flex flex-col mr-10">
+                    {" "}
+                    <Typography className="profileSectionHeaderList">
+                      Phone
+                    </Typography>{" "}
+                    <Typography className="profileSectionUserDetail">
+                      {profileDetails.contactNumber}
+                    </Typography>
+                  </Grid>
                 </div>
               </Grid>
-              <Grid className="personalSection"> 
+              <Grid className="personalSection">
                 <Typography> Employment Details </Typography>
-                <div className="flex my-5">  
-                <Grid xs className="flex flex-col mr-10"> <Typography className="profileSectionHeaderList">Job Title</Typography> <Typography className="profileSectionUserDetail">{jobTitle}</Typography></Grid> 
-                <Grid xs className="flex flex-col mr-10"> <Typography className="profileSectionHeaderList">Department</Typography> <Typography className="profileSectionUserDetail">{department}</Typography></Grid> 
-                <Grid xs className="flex flex-col mr-10"> <Typography className="profileSectionHeaderList">Start Date</Typography> <Typography className="profileSectionUserDetail">{startDate}</Typography></Grid> 
-                <Grid xs className="flex flex-col mr-10"> <Typography className="profileSectionHeaderList">End Date</Typography> <Typography className="profileSectionUserDetail">{endDate}</Typography></Grid> 
-                <Grid xs className="flex flex-col mr-10"> <Typography className="profileSectionHeaderList">Employment Status</Typography> <Typography className="profileSectionUserDetail"><span className="profileSectionUserDetail bg-green-200 p-1 text-green-600 rounded-lg">Active</span></Typography></Grid> 
+                <div className="flex my-5">
+                  <Grid xs className="flex flex-col mr-10">
+                    {" "}
+                    <Typography className="profileSectionHeaderList">
+                      Job Title
+                    </Typography>{" "}
+                    <Typography className="profileSectionUserDetail">
+                      {jobTitle}
+                    </Typography>
+                  </Grid>
+                  <Grid xs className="flex flex-col mr-10">
+                    {" "}
+                    <Typography className="profileSectionHeaderList">
+                      Department
+                    </Typography>{" "}
+                    <Typography className="profileSectionUserDetail">
+                      {department}
+                    </Typography>
+                  </Grid>
+                  <Grid xs className="flex flex-col mr-10">
+                    {" "}
+                    <Typography className="profileSectionHeaderList">
+                      Start Date
+                    </Typography>{" "}
+                    <Typography className="profileSectionUserDetail">
+                      {startDate}
+                    </Typography>
+                  </Grid>
+                  <Grid xs className="flex flex-col mr-10">
+                    {" "}
+                    <Typography className="profileSectionHeaderList">
+                      End Date
+                    </Typography>{" "}
+                    <Typography className="profileSectionUserDetail">
+                      {endDate}
+                    </Typography>
+                  </Grid>
+                  <Grid xs className="flex flex-col mr-10">
+                    {" "}
+                    <Typography className="profileSectionHeaderList">
+                      Employment Status
+                    </Typography>{" "}
+                    <Typography className="profileSectionUserDetail">
+                      <span className="profileSectionUserDetail bg-green-200 p-1 text-green-600 rounded-lg">
+                        Active
+                      </span>
+                    </Typography>
+                  </Grid>
                 </div>
               </Grid>
-             </Grid>
+            </Grid>
           </Paper>
         </Grid>
       </Grid>
