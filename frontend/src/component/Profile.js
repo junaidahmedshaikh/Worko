@@ -114,6 +114,13 @@ const Profile = (props) => {
   const [userData, setUserData] = useState();
   const [open, setOpen] = useState(false);
 
+  const [resumeAnalysis, setResumeAnalysis] = useState([]);
+
+  const bestFitListing = resumeAnalysis?.reduce((prevJob, currentJob) => {
+    return currentJob.fit_score > prevJob.fit_score ? currentJob : prevJob;
+  }, resumeAnalysis?.[0]);
+
+  console.log("🚀 ~ Profile ~ filteredListings:", bestFitListing);
   const [profileDetails, setProfileDetails] = useState({
     name: "",
     education: [],
@@ -122,7 +129,26 @@ const Profile = (props) => {
     profile: "",
   });
 
-  console.log("🚀 ~ Profile ~ profileDetails:", profileDetails);
+  const getResumeAnalysis = () => {
+    axios
+      .post(apiList.resumeparse, {
+        resume_url: profileDetails.resume,
+      })
+      .then((response) => {
+        console.log(response.data);
+        setResumeAnalysis(response.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  useEffect(() => {
+    if (profileDetails.resume) {
+      getResumeAnalysis();
+    }
+  }, [profileDetails]);
+
   const [education, setEducation] = useState([
     {
       institutionName: "",
@@ -226,8 +252,8 @@ const Profile = (props) => {
   const department = "Designer Department";
   let firstName = "Junaid";
   let lastName = "Shaikh";
-  let emailAddress = "junaid@gmail.com";
-  let phoneNo = 9859438294;
+  let emailAddress = "avinash@gmail.com";
+  let phoneNo = 8850094860;
   let profileLink =
     "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c1/Google_%22G%22_logo.svg/1024px-Google_%22G%22_logo.svg.png";
 
@@ -399,11 +425,24 @@ const Profile = (props) => {
               <Grid item className="profileCards">
                 {/* Header of the card */}
                 <Grid item sm className="profileCardsHeader">
-                  <Typography class="profileCardsHeading">Projects</Typography>
-                  <Grid item sm className="profileCardsHeaderIcons">
-                    {/* <i class="fa-solid fa-pen"></i> */}
-                  </Grid>
+                  <Typography class="profileCardsHeading">
+                    Improvements
+                  </Typography>
                 </Grid>
+                <>
+                  <Grid className="text-xl mb-2">
+                    You are best fitted for{" "}
+                    <span className="font-bold">
+                      {bestFitListing?.job_name}
+                    </span>{" "}
+                    roles
+                  </Grid>
+                  <Grid item sm className="profileCardsSubHeading ">
+                    <span className="ml-3">
+                      {bestFitListing?.recommendations}
+                    </span>
+                  </Grid>
+                </>
                 {/* Main body of the card */}
                 {/* <Grid item>
                   <Grid

@@ -1,5 +1,6 @@
 export const server = "http://localhost:8080";
-export const courseMLServer = "https://course-recomm.onrender.com";
+export const courseMLServer = "http://localhost:5000";
+export const resumeParserServer = "http://localhost:5001";
 
 const apiList = {
   login: `${server}/auth/login`,
@@ -12,6 +13,7 @@ const apiList = {
   user: `${server}/api/user`,
   applicants: `${server}/api/applicants`,
   coursesuggestions: `${courseMLServer}/courses`,
+  resumeparse: `${resumeParserServer}/analyze_resume`,
 };
 
 export default apiList;

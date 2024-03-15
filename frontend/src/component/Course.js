@@ -61,14 +61,43 @@ const staticCourses = [
 const Course = () => {
   const [courses, setCourses] = useState(() => staticCourses);
   const [loading, setLoading] = useState(true); // Added loading state
+  const [images, setImages] = useState({});
   console.log("🚀 ~ Course ~ courses:", courses);
   const setPopup = useContext(SetPopupContext);
+
+  const [profileDetails, setProfileDetails] = useState({});
+  console.log("🚀 ~ Course ~ profileDetails:", profileDetails);
+
+  const getData = () => {
+    axios
+      .get(apiList.user, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      })
+      .then((response) => {
+        console.log(response.data);
+        setProfileDetails(response.data);
+      })
+      .catch((err) => {
+        console.log(err);
+        // setPopup({
+        //   open: true,
+        //   severity: "error",
+        //   message: "Error",
+        // });
+      });
+  };
+
+  useEffect(() => {
+    getData();
+  }, []);
 
   const getCourseSuggestions = () => {
     setLoading(true); // Set loading to true before making the API call
     axios
       .post(apiList.coursesuggestions, {
-        user_skills: ["html", "css", "javascript"],
+        user_skills: profileDetails?.skills,
       })
       .then((response) => {
         console.log(response.data);
@@ -88,8 +117,29 @@ const Course = () => {
   };
 
   useEffect(() => {
-    getCourseSuggestions();
-  }, []);
+    if (profileDetails?.skills) getCourseSuggestions();
+  }, [profileDetails]);
+  // useEffect hook to fetch images for all courses when component mounts
+  useEffect(() => {
+    fetchImages();
+  }, []); // Fetch images only once when the component mounts
+
+  // Function to fetch images for all courses
+  const fetchImages = () => {
+    const promises = courses.map(() =>
+      axios
+        .get(`https://source.unsplash.com/random/400x300/?programming`)
+        .then((response) => response.request.responseURL)
+        .catch((error) => {
+          console.error("Error fetching random image:", error);
+          return "";
+        })
+    );
+
+    Promise.all(promises).then((imageUrls) => {
+      setImages(imageUrls);
+    });
+  };
 
   const truncate = (input) =>
     input?.length > 300 ? `${input.substring(0, 400)}...` : input;
@@ -121,15 +171,21 @@ const Course = () => {
           <CircularProgress />
         </Box> // Display loading state
       ) : (
-        courses?.map((course) => (
+        courses?.map((course, idx) => (
           <div className="max-w-md mx-auto bg-white rounded-xl shadow-md overflow-hidden md:max-w-4xl m-8 mt-10">
             <div className="md:flex">
               <div className="md:flex-shrink-0">
-                <img
-                  className="h-full w-full object-cover md:w-48"
-                  src="https://source.unsplash.com/random?courses,programming"
-                  alt="Course Image"
-                />
+                {images[idx] ? (
+                  <img
+                    className="h-full w-full object-cover md:w-48"
+                    src={images[idx]}
+                    alt="Course Image"
+                  />
+                ) : (
+                  <div className="h-full w-full object-cover md:w-48 flex justify-center items-center">
+                    <CircularProgress className="flex flex-center" />
+                  </div>
+                )}
               </div>
               <div className="p-8 w-full">
                 <div className="uppercase tracking-wide text-xs text-indigo-500 font-semibold">

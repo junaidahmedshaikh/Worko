@@ -92,7 +92,6 @@ const JobTile = (props) => {
   };
 
   const handleDelete = () => {
-    
     console.log(job._id);
     axios
       .delete(`${apiList.jobs}/${job._id}`, {
@@ -110,7 +109,6 @@ const JobTile = (props) => {
         handleClose();
       })
       .catch((err) => {
-  
         console.log(err.response);
         setPopup({
           open: true,
@@ -152,18 +150,18 @@ const JobTile = (props) => {
   // console.log("Workiiiiiing");
   // console.log(jobTileOuter);
   // const cname = handleJobUpdate;
-   
-  console.log("Company Name "+ job.companyName)
+
+  console.log("Company Name " + job.companyName);
   return (
     <Paper
       class="w-6/12 shadow-md my-2 py-5 px-3 rounded-md"
       className={classes.jobTileOuter}
     >
-      <Grid >
+      <Grid>
         <Grid>
           <Grid item>
             <Typography class="font-medium text-xl text-black">
-              {job.title} 
+              {job.title}
             </Typography>
           </Grid>
 
@@ -176,38 +174,51 @@ const JobTile = (props) => {
               <i class="fa-solid fa-building"></i> {job.companyName}
             </span>
           </Grid>
-          
+
           {/* <Grid item>
             <Rating value={job.rating !== -1 ? job.rating : null} readOnly />
           </Grid> */}
 
           <Grid class="cardSubTitle">
-            <span>  <i class="fa-solid fa-child"></i> {job.jobType}  </span>
-            <span>  <i class="fa-solid fa-indian-rupee-sign"></i>  {job.salary}{" "}
-            per month </span>
-            <span  item>
+            <span>
+              {" "}
+              <i class="fa-solid fa-child"></i> {job.jobType}{" "}
+            </span>
+            <span>
+              {" "}
+              <i class="fa-solid fa-indian-rupee-sign"></i> {job.salary} per
+              month{" "}
+            </span>
+            <span item>
               <i class="fa-solid fa-timeline"></i>{" "}
-              {job.duration !== 0 ? `${job.duration} month` : `Flexible`} <i class="fa-solid fa-timer"></i>
+              {job.duration !== 0 ? `${job.duration} month` : `Flexible`}{" "}
+              <i class="fa-solid fa-timer"></i>
             </span>
           </Grid>
-         
 
-          <Grid class="cardSubTitle my-5" >
-            <span> Number of Applicants: {job.maxApplicants} </span>  {"       "}  
-          <span item> Remaining Number of Positions:{" "}  {job.maxPositions - job.acceptedCandidates} </span></Grid>
-          <Grid class="cardSubTitle" item>Date Of Posting: {postedOn.toLocaleDateString()}</Grid>
-          
-            <Grid item xs class="flex my-5">
-              <Grid class="flex justify-items-start w-6/12">
-                <Button 
-                  class="w-auto"
-                  className={classes.statusBlock}
-                  onClick={() => handleClick(`/job/applications/${job._id}`)}
-                >
-                  View Applications
-                </Button>
-              </Grid>
-              <Grid item xs class="flex w-6/12 justify-evenly">
+          <Grid class="cardSubTitle my-5">
+            <span> Number of Applicants: {job.maxApplicants} </span> {"       "}
+            <span item>
+              {" "}
+              Remaining Number of Positions:{" "}
+              {job.maxPositions - job.acceptedCandidates}{" "}
+            </span>
+          </Grid>
+          <Grid class="cardSubTitle" item>
+            Date Of Posting: {postedOn.toLocaleDateString()}
+          </Grid>
+
+          <Grid item xs class="flex my-5">
+            <Grid class="flex justify-items-start w-6/12">
+              <Button
+                class="w-auto"
+                className={classes.statusBlock}
+                onClick={() => handleClick(`/job/applications/${job._id}`)}
+              >
+                View Applications
+              </Button>
+            </Grid>
+            <Grid item xs class="flex w-6/12 justify-evenly">
               <Button
                 class=""
                 className={classes.statusBlock}
@@ -226,7 +237,7 @@ const JobTile = (props) => {
               >
                 Delete
               </Button>
-              </Grid>
+            </Grid>
           </Grid>
         </Grid>
       </Grid>
@@ -477,7 +488,7 @@ const FilterPopup = (props) => {
           </Grid>
           <Grid container item alignItems="center">
             <Grid item xs={3}>
-              Duration 
+              Duration
             </Grid>
             <Grid item xs={9}>
               <TextField
@@ -809,7 +820,7 @@ const MyJobs = (props) => {
         class="mainGridContainer"
         direction="column"
         alignItems="center"
-        style={{ padding: "30px", minHeight: "93vh"  }}
+        style={{ padding: "30px", minHeight: "93vh" }}
       >
         <Grid
           item
@@ -819,7 +830,7 @@ const MyJobs = (props) => {
           alignItems="center"
         >
           {/* <Grid item xs>
-           
+
           </Grid> */}
           <Grid item xs>
             <TextField
@@ -858,7 +869,8 @@ const MyJobs = (props) => {
             //   alignItems: "center",
             //   margin: "2rem 0",
             // }}
-           className="flex justify-between  w-full items-center mx-8">
+            className="flex justify-between  w-full items-center mx-8"
+          >
             <Typography>Manage Postings </Typography>
             <IconButton class="p-1" onClick={() => setFilterOpen(true)}>
               <Typography>Filter</Typography>
