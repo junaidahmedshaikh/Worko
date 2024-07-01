@@ -27,10 +27,14 @@ const Welcome = (props) => {
               </div>
               <div className="flex-1">
                 <div>
-                  <Link style={{ width: "100%"}} to="home">
-                    <button className="homeBtn transition-all duration-300 bg-#4f89f1 w-30 border border-transparent rounded font-semibold tracking-wide text-sm px-5 py-4 focus:outline-none focus:shadow-outline bg-indigo-500 text-gray-100 hover:bg-indigo-600 hover:text-gray-200">
-                      {props.type === "recruiter" ? "Find Talent" : "Find Job"}
-                    </button>
+                  <Link
+                    style={{ width: "150%" }}
+                    to="home"
+                    className="homeBtn transition-all duration-300 bg-#4f89f1 w-40 border border-transparent rounded font-semibold tracking-wide text-sm px-5 py-4 focus:outline-none focus:shadow-outline bg-indigo-500 text-gray-100 hover:bg-indigo-600 hover:text-gray-200"
+                  >
+                    {/* <button> */}
+                    {props.type === "recruiter" ? "Find Talent" : "Find Job"}
+                    {/* </button> */}
                   </Link>
                 </div>
               </div>
@@ -298,9 +302,7 @@ const Welcome = (props) => {
                               <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
                               <circle cx={12} cy={10} r={3} />
                             </svg>
-                            <span className="ml-1 text-gray-600">
-                              India
-                            </span>
+                            <span className="ml-1 text-gray-600">India</span>
                           </div>
                           <div className="flex items-start ml-4">
                             <svg
@@ -361,9 +363,7 @@ const Welcome = (props) => {
                           }}
                         />
                         <div className="ml-5">
-                          <div className="font-bold text-gray-800">
-                            Avi
-                          </div>
+                          <div className="font-bold text-gray-800">Avi</div>
                           <div className="text-xs text-gray-500">
                             Hired 9 Hours ago
                           </div>

@@ -103,12 +103,10 @@ const JobTile = (props) => {
   const cAddress = "Mumbai, Maharashtra, India";
   const cName = "Company Name";
   const cEducation = " Bachelor's degree in Computer Science";
+  console.log("🚀 ~ JobTile ~ job:", job);
   // const
   return (
-    <Paper
-      className={classes.jobTileOuter}
-      class="w-5/12 shadow my-2 py-5 px-5"
-    >
+    <Paper className={classes.jobTileOuter} class=" shadow my-2 py-5 px-5">
       <Grid container class="flex flex-col">
         <Grid container item xs={9} spacing={1} direction="column">
           <Grid item>
@@ -118,9 +116,7 @@ const JobTile = (props) => {
               </Typography>
             </Grid>
             <Grid item class="cardSubTitle mb-2 flex flex-col">
-              <span class="">
-                 {cName}
-              </span>
+              {/* <span class="">{cName}</span> */}
               <span>Posted By : {job.recruiter.name}</span>
             </Grid>
           </Grid>
@@ -136,23 +132,25 @@ const JobTile = (props) => {
               <i class="fa-solid fa-indian-rupee-sign"></i> {job.salary} PA
             </span>{" "}
             <span>
-            <i class="fa-solid fa-location-dot "> </i> {cAddress}{" "}
-            </span>   
+              <i class="fa-solid fa-location-dot "> </i> {cAddress}{" "}
+            </span>
           </Grid>
           <Grid item class="cardSubTitle">
             {" "}
             <span>
               {" "}
-              <i class="fa-solid fa-user-graduate"></i> {cEducation}{" "}
+              <i class="fa-solid fa-user-graduate"></i> {job.jobType}{" "}
             </span>
           </Grid>
-         
         </Grid>
         {/* Button of Card  */}
         <Grid item className="flex align-middle justify-evenly ">
           {/* Typography Section */}
           <Grid item class="cardSubTitle flex w-full my-5 justify-start">
-            <span> {"None None None"}</span>
+            {job?.skillsets.map((skill) => {
+              return <span style={{ marginRight: "10px" }}> {skill}</span>;
+            })}
+            {/* // <span> {"None None None"}</span> */}
           </Grid>
           {/* Button Section */}
           <Grid item class="flex p-4">

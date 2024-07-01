@@ -37,9 +37,9 @@ const useStyles = makeStyles((theme) => ({
   },
   jobTileOuter: {
     padding: "30px",
-    margin: "20px 0",
+    margin: "20px auto",
     boxSizing: "border-box",
-    width: "100%",
+    width: "80%",
   },
   popupDialog: {
     height: "100%",
@@ -52,6 +52,7 @@ const useStyles = makeStyles((theme) => ({
 const ApplicationTile = (props) => {
   const classes = useStyles();
   const { application } = props;
+  console.log("🚀 ~ ApplicationTile ~ application:", application);
   const setPopup = useContext(SetPopupContext);
   const [open, setOpen] = useState(false);
   const [rating, setRating] = useState(application.job.rating);
@@ -130,44 +131,49 @@ const ApplicationTile = (props) => {
   };
 
   return (
-    
-    <Paper class="border-2 rounded-md px-5 py-5 w-6/12" className={classes.jobTileOuter} >
-      <Grid  class="job-card-container" className="flex flex-col">
-        <Grid  direction="column">
+    <Paper
+      class="border-2 rounded-md px-5 py-5 w-6/12"
+      className={classes.jobTileOuter}
+    >
+      <Grid class="job-card-container" className="flex flex-col">
+        <Grid direction="column">
           <Grid item>
             <Typography class="cardTitle">{application.job.title} </Typography>
             <Typography class="cardSubTitle"> Company Name </Typography>
           </Grid>
           <Grid class="cardSubTitle">
-          <span item>Posted By: {application.recruiter.name}</span>
-          <span item>Role : {application.job.jobType}</span>
-          <span item>Salary : &#8377; {application.job.salary} per month</span>
+            <span item>Posted By: {application.recruiter.name}</span>
+            <span item>Role : {application.job.jobType}</span>
+            <span item>
+              Salary : &#8377; {application.job.salary} per month
+            </span>
           </Grid>
-         
+
           <Grid class="cardSubTitle">
-          <span>
-            Duration :{" "}
-            {application.job.duration !== 0
-              ? `${application.job.duration} month`
-              : `Flexible`} {' '}
-          </span>
-          <span> {' '} Applied On: {appliedOn.toLocaleDateString()}</span>
+            <span>
+              Duration :{" "}
+              {application.job.duration !== 0
+                ? `${application.job.duration} month`
+                : `Flexible`}{" "}
+            </span>
+            <span> Applied On: {appliedOn.toLocaleDateString()}</span>
           </Grid>
-          {/* <Grid item>
+          <Grid item>
             {application.job.skillsets.map((skill) => (
               <Chip label={skill} style={{ marginRight: "2px" }} />
             ))}
-          </Grid> */}
-          
+          </Grid>
+
           {application.status === "accepted" ||
           application.status === "finished" ? (
-            <Grid item >Joined On: {joinedOn.toLocaleDateString()}</Grid>
+            <Grid item>Joined On: {joinedOn.toLocaleDateString()}</Grid>
           ) : null}
         </Grid>
         <Grid item container direction="column" class="w-full" xs={3}>
-          <Grid item class="flex my-4 py-2 w-6/12">
-            <Grid item class="primaryButton  my-4">Status: {application.status.toUpperCase()}</Grid>
-            <Grid item class="secondaryButton" href="#"> View More </Grid>
+          <Grid item class="flex my-4 py-2 w-2/12">
+            <Grid item class="primaryButton  my-4">
+              Status: {application.status.toUpperCase()}
+            </Grid>
           </Grid>
           {application.status === "accepted" ||
           application.status === "finished" ? (
@@ -218,7 +224,6 @@ const ApplicationTile = (props) => {
         </Paper>
       </Modal>
     </Paper>
-  
   );
 };
 
@@ -260,15 +265,15 @@ const Applications = (props) => {
       alignItems="center"
       style={{ padding: "30px", minHeight: "93vh" }}
     >
-      {/* <Grid item>
-        <Typography variant="h2">Applications</Typography>
-      </Grid> */}
+      {/* <Grid item> */}
+      <Typography variant="h2">Applications</Typography>
+      {/* </Grid> */}
       <Grid
         container
         item
         xs
         direction="column"
-        style={{ width: "100%" }}
+        style={{ width: "80%" }}
         alignItems="stretch"
         justify="center"
       >
