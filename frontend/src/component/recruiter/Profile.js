@@ -3,44 +3,44 @@ import {
   Button,
   Grid,
   Typography,
-  Modal,
   Paper,
   makeStyles,
+  Modal,
   TextField,
-  List,
-  ListItem,
+  Chip,
+  MultifieldInput,
+  FileUploadInput,
+  Model,
+  // DescriptionIcon,
 } from "@material-ui/core";
 import axios from "axios";
-import PhoneInput from "react-phone-input-2";
-import "react-phone-input-2/lib/material.css";
-
 import { SetPopupContext } from "../../App";
-
+import { FaLinkedin, FaTwitter, FaGithub } from "react-icons/fa"; // Importing the social media icons
 import apiList from "../../lib/apiList";
+import { CiFaceSmile } from "react-icons/ci";
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
   body: {
     height: "inherit",
-  },
-  popupDialog: {
-    height: "100%",
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    // padding: "30px",
   },
 }));
 
 const Profile = (props) => {
+  const [open, setOpen] = useState(false);
   const classes = useStyles();
   const setPopup = useContext(SetPopupContext);
-
+  // const [open, setOpen] = useState(false);
   const [profileDetails, setProfileDetails] = useState({
     name: "",
-    bio: "",
+    surname: "",
+    email: "",
+    phone: "",
+    aboutMe: "",
+    experience: "",
     contactNumber: "",
+    bio: "",
     companyName: "",
-    emailID: "",
+    socialMedia: [],
   });
 
   const [phone, setPhone] = useState("");
@@ -74,26 +74,16 @@ const Profile = (props) => {
         setPopup({
           open: true,
           severity: "error",
-          message: "Error",
+          message: "Error fetching profile details",
         });
       });
   };
 
   const handleUpdate = () => {
-    let updatedDetails = {
+    const updatedDetails = {
       ...profileDetails,
+      contactNumber: phone ? `+${phone}` : "",
     };
-    if (phone !== "") {
-      updatedDetails = {
-        ...profileDetails,
-        contactNumber: `+${phone}`,
-      };
-    } else {
-      updatedDetails = {
-        ...profileDetails,
-        contactNumber: "",
-      };
-    }
 
     axios
       .put(apiList.user, updatedDetails, {
@@ -110,134 +100,316 @@ const Profile = (props) => {
         getData();
       })
       .catch((err) => {
+        console.log(err.response.data);
         setPopup({
           open: true,
           severity: "error",
           message: err.response.data.message,
         });
-        console.log(err.response);
       });
   };
+  const handleImageChange = (event) => {
+    const file = event.target.files[0];
+    if (file) {
+      setProfileDetails((prevDetails) => ({
+        ...prevDetails,
+        profilePicture: file,
+      }));
+    }
+  };
+  const imagePreview = profileDetails.profilePicture
+    ? URL.createObjectURL(profileDetails.profilePicture)
+    : null;
+  const handleChange = (e) => {
+    setProfileDetails({
+      ...profileDetails,
+      [e.target.name]: e.target.value,
+    });
+  };
+  // Model Handle Function
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
 
-  // For Testing Purpose
-  const companyName = "companyName";
-  const startDate = "11/11/2022";
-  const endDate = "30/12/2023";
-  const jobTitle = "Frontend Developer";
-  const department = "Designer Department";
-  let firstName = profileDetails.name;
-  let lastName = "Shaikh";
-  let emailAddress = "junaid@gmail.com";
-  let phoneNo = 9859438294;
-  let profileLink =
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c1/Google_%22G%22_logo.svg/1024px-Google_%22G%22_logo.svg.png";
   return (
     <>
-      <Grid container className="mainGridContainer">
-        <Grid style={{ width: "100%", padding: "10px 100px" }}>
-          <Paper className="w-full ">
-            <Grid className="flex flex-cols bg-slate-400 py-10 dssss">
+      <Grid
+        container
+        item
+        direction="column"
+        alignItems="center"
+        // className="bg-slate-900"
+        style={{ padding: "auto", minHeight: "90vh", paddingTop: "30px" }}
+      >
+        <div className="w-full bg-white p-5">
+          <div className="flex justify-between bg-white py-10 px-10">
+            <div className="flex">
               <div className="w-20 flex justify-items-center mr-5 ml-10">
                 <img
-                  className="w-12/12 h-6/12 rounded-full"
-                  src={profileLink}
-                ></img>
+                  className="w-36 object-cover rounded-full"
+                  src={imagePreview}
+                  alt="Profile"
+                />
               </div>
               <div className="flex flex-col">
-                <h1 className="cardTitle">{profileDetails.name}</h1>
-                <h3 className="cardSubTitle">Recruitor</h3>
+                <div>
+                  {" "}
+                  <h1 className="text-xl font-semibold">
+                    {profileDetails.name} {profileDetails.surname}
+                  </h1>
+                  <h3 className="text-sm">Recruiter</h3>
+                  {/* Social Media Icons Section */}
+                  <div className="flex space-x-4 mt-4">
+                    {/* LinkedIn */}
+                    <a
+                      href={profileDetails.linkedin}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-blue-700 hover:text-blue-500 transition-all duration-300 transform hover:scale-110"
+                    >
+                      <FaLinkedin size={24} />
+                    </a>
+                    {/* Twitter */}
+                    <a
+                      href={profileDetails.twitter}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-blue-400 hover:text-blue-300 transition-all duration-300 transform hover:scale-110"
+                    >
+                      <FaTwitter size={24} />
+                    </a>
+                    {/* GitHub */}
+                    <a
+                      href={profileDetails.github}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-gray-800 hover:text-gray-600 transition-all duration-300 transform hover:scale-110"
+                    >
+                      <FaGithub size={24} />
+                    </a>
+                  </div>
+                </div>
               </div>
-            </Grid>
-            <Grid className="w-full bg-white py-5 px-10 rounded-lg">
-              <Grid className="personalSection">
-                <Typography> Personal Information </Typography>
-                <div className="flex my-5 ">
-                  <Grid xs className="flex flex-col mr-10">
-                    {" "}
-                    <Typography className="profileSectionHeaderList">
-                      Full Name
-                    </Typography>{" "}
-                    <Typography className="profileSectionUserDetail">
-                      {profileDetails.name}
-                    </Typography>
-                  </Grid>
-                  {/* <Grid xs className="flex flex-col mr-10"> <Typography className="profileSectionHeaderList"></Typography> <Typography className="profileSectionUserDetail">{lastName}</Typography></Grid>  */}
-                  <Grid xs className="flex flex-col mr-10">
-                    {" "}
-                    <Typography className="profileSectionHeaderList">
-                      Email Address
-                    </Typography>{" "}
-                    <Typography className="profileSectionUserDetail">
-                      {profileDetails.emailID}
-                    </Typography>
-                  </Grid>
-                  <Grid xs className="flex flex-col mr-10">
-                    {" "}
-                    <Typography className="profileSectionHeaderList">
-                      Phone
-                    </Typography>{" "}
-                    <Typography className="profileSectionUserDetail">
-                      {profileDetails.contactNumber}
-                    </Typography>
-                  </Grid>
+            </div>
+            <div className="flex justify-end items-center mt-4">
+              <button
+                className="bg-blue-500 text-white px-6 py-2 rounded-lg hover:bg-blue-700"
+                onClick={handleOpen}
+              >
+                Edit Profile
+              </button>
+            </div>
+          </div>
+
+          <div className="bg-white py-5 px-10 rounded-lg mt-5 ">
+            <div
+              className="rounded-md my-2 py-5 px-5 shadow-[0px_2px_3px_-1px_rgba(0,0,0,0.1),0px_1px_0px_0px_rgba(25,28,33,0.02),0px_0px_0px_1px_rgba(25,28,33,0.08)]"
+              style={{
+                boxShadow:
+                  "0px 2px 3px -1px rgba(0,0,0,0.1), 0px 1px 0px 0px rgba(25,28,33,0.02), 0px 0px 0px 1px rgba(25,28,33,0.08)",
+              }}
+            >
+              <h2 className="text-lg font-semibold text-gray-900 ">
+                Personal Information
+              </h2>
+              <div>
+                <div className="flex mt-4">
+                  <div className="mr-10">
+                    <p className="font-semibold text-gray-800">Name</p>
+                    <p className="text-gray-600">
+                      {profileDetails.name} {profileDetails.surname}
+                    </p>
+                  </div>
+                  <div className="mr-10">
+                    <p className="font-semibold text-gray-800">Email</p>
+                    <p className="text-gray-600">{profileDetails.email}</p>
+                  </div>
+                  <div className="mr-10">
+                    <p className="font-semibold  text-gray-800">Phone</p>
+                    <p className="text-gray-600">
+                      {profileDetails.contactNumber || ""}
+                    </p>
+                  </div>
                 </div>
-              </Grid>
-              <Grid className="personalSection">
-                <Typography> Employment Details </Typography>
-                <div className="flex my-5">
-                  <Grid xs className="flex flex-col mr-10">
-                    {" "}
-                    <Typography className="profileSectionHeaderList">
-                      Job Title
-                    </Typography>{" "}
-                    <Typography className="profileSectionUserDetail">
-                      {jobTitle}
-                    </Typography>
-                  </Grid>
-                  <Grid xs className="flex flex-col mr-10">
-                    {" "}
-                    <Typography className="profileSectionHeaderList">
-                      Department
-                    </Typography>{" "}
-                    <Typography className="profileSectionUserDetail">
-                      {department}
-                    </Typography>
-                  </Grid>
-                  <Grid xs className="flex flex-col mr-10">
-                    {" "}
-                    <Typography className="profileSectionHeaderList">
-                      Start Date
-                    </Typography>{" "}
-                    <Typography className="profileSectionUserDetail">
-                      {startDate}
-                    </Typography>
-                  </Grid>
-                  <Grid xs className="flex flex-col mr-10">
-                    {" "}
-                    <Typography className="profileSectionHeaderList">
-                      End Date
-                    </Typography>{" "}
-                    <Typography className="profileSectionUserDetail">
-                      {endDate}
-                    </Typography>
-                  </Grid>
-                  <Grid xs className="flex flex-col mr-10">
-                    {" "}
-                    <Typography className="profileSectionHeaderList">
-                      Employment Status
-                    </Typography>{" "}
-                    <Typography className="profileSectionUserDetail">
-                      <span className="profileSectionUserDetail bg-green-200 p-1 text-green-600 rounded-lg">
-                        Active
-                      </span>
-                    </Typography>
-                  </Grid>
+              </div>
+            </div>
+
+            <div
+              className="rounded-md py-5 px-5 shadow-[0px_2px_3px_-1px_rgba(0,0,0,0.1),0px_1px_0px_0px_rgba(25,28,33,0.02),0px_0px_0px_1px_rgba(25,28,33,0.08)]"
+              style={{
+                boxShadow:
+                  "0px 2px 3px -1px rgba(0,0,0,0.1), 0px 1px 0px 0px rgba(25,28,33,0.02), 0px 0px 0px 1px rgba(25,28,33,0.08)",
+              }}
+            >
+              <h2 className="text-lg font-semibold text-gray-900 ">
+                Employment Details
+              </h2>
+              <div className="flex mt-4">
+                <div className="mr-10">
+                  <p className="font-semibold  text-gray-800">Experience</p>
+                  <p className="text-gray-600">{profileDetails.experience}</p>
                 </div>
-              </Grid>
-            </Grid>
-          </Paper>
-        </Grid>
+                <div className="mr-10">
+                  <p className="font-semibold  text-gray-800">Company Name</p>
+                  <p className="text-gray-600">{profileDetails.companyName}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </Grid>
+
+      {/* Model  */}
+      {open && (
+        <div className="fixed inset-0 bg-gray-600 bg-opacity-50 flex justify-center  items-center">
+          <div className="bg-white p-6 rounded-lg w-2/4 ">
+            <div className="flex justify-between">
+              <h2 className="text-xl font-semibold">Edit Profile</h2>
+              <div>
+                <button
+                  type="button"
+                  onClick={handleClose}
+                  class="bg-transparent rounded-md p-2 inline-flex items-center justify-center text-gray-500 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500"
+                >
+                  <span class="sr-only">Close menu</span>
+
+                  <svg
+                    class="h-6 w-6"
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                    aria-hidden="true"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M6 18L18 6M6 6l12 12"
+                    />
+                  </svg>
+                </button>
+              </div>
+            </div>
+            <form>
+              <div className="flex gap-8 ">
+                <div>
+                  <label className="block text-sm font-medium text-gray-700">
+                    Personal Information
+                  </label>
+                  <div>
+                    <input
+                      type="text"
+                      name="name"
+                      placeholder="Full Name"
+                      value={profileDetails.name}
+                      onChange={handleChange}
+                      className="w-full p-3 mb-4 border rounded"
+                    />
+                    <input
+                      type="text"
+                      name="surname"
+                      placeholder="Surname"
+                      value={profileDetails.surname}
+                      onChange={handleChange}
+                      className="w-full p-3 mb-4 border rounded"
+                    />
+                    <input
+                      type="email"
+                      name="email"
+                      placeholder="Email"
+                      value={profileDetails.email}
+                      onChange={handleChange}
+                      className="w-full p-3 mb-4 border rounded"
+                    />
+                    <input
+                      type="text"
+                      name="contactNumber"
+                      placeholder="Phone"
+                      value={profileDetails.contactNumber}
+                      onChange={handleChange}
+                      className="w-full p-3 mb-4 border rounded"
+                    />
+                    <input
+                      type="text"
+                      name="experience"
+                      placeholder="Experience"
+                      value={profileDetails.experience}
+                      onChange={handleChange}
+                      className="w-full p-3 mb-4 border rounded"
+                    />
+                    <input
+                      type="text"
+                      name="companyName"
+                      placeholder="Company Name"
+                      value={profileDetails.companyName}
+                      onChange={handleChange}
+                      className="w-full p-3 mb-4 border rounded"
+                    />
+                  </div>
+                </div>
+
+                <div className="">
+                  {/* Social Media Links */}
+                  <div className="mb-4">
+                    <label className="block text-sm font-medium text-gray-700">
+                      Social Media Links
+                    </label>
+
+                    <input
+                      type="text"
+                      name="linkedin"
+                      placeholder="LinkedIn URL"
+                      value={profileDetails.linkedin}
+                      onChange={handleChange}
+                      className="w-full p-3 mt-2 mb-4 border rounded"
+                    />
+                    <input
+                      type="text"
+                      name="twitter"
+                      placeholder="Twitter URL"
+                      value={profileDetails.twitter}
+                      onChange={handleChange}
+                      className="w-full p-3 mb-4 border rounded"
+                    />
+                    <input
+                      type="text"
+                      name="github"
+                      placeholder="GitHub URL"
+                      value={profileDetails.github}
+                      onChange={handleChange}
+                      className="w-full p-3 mb-4 border rounded"
+                    />
+                  </div>
+
+                  {/* Image Upload Input */}
+                  <div className="mb-4">
+                    <label className="block text-sm font-medium text-gray-700">
+                      Profile Picture
+                    </label>
+                    <input
+                      type="file"
+                      name="profilePicture"
+                      onChange={handleImageChange} // Function to handle image upload
+                      accept="image/*"
+                      className="w-full p-3 mt-2 border rounded"
+                    />
+                  </div>
+                </div>
+              </div>
+
+              <div className="flex justify-center mt-4">
+                <button
+                  type="button"
+                  onClick={handleClose}
+                  className="bg-blue-500 text-white px-6 py-2 rounded-lg hover:bg-blue-700"
+                >
+                  Save Changes
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
     </>
   );
 };

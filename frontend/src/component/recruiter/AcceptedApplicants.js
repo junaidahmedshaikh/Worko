@@ -43,8 +43,10 @@ const useStyles = makeStyles((theme) => ({
   jobTileOuter: {
     padding: "30px",
     margin: "20px 0",
-    boxSizing: "border-box",
+    // boxSizing: "border-box",
+    shadow: "none",
     width: "100%",
+    // background: "red",
   },
   popupDialog: {
     height: "100%",
@@ -538,104 +540,100 @@ const ApplicationTile = (props) => {
         handleCloseEndJob();
       });
   };
-  console.log(application.jobApplicant, "aasdfassfassf");
+  console.log(application, "aasdfassfassf");
 
   return (
     <Paper className={classes.jobTileOuter} elevation={3}>
-      <Grid container>
-        <Grid
-          item
-          xs={2}
-          style={{
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-          }}
-        >
-          <Avatar
-            src={`${application.jobApplicant.profile}`}
-            className={classes.avatar}
-          />
-        </Grid>
-        <Grid container item xs={7} spacing={1} direction="column">
-          <Grid item>
-            <Typography variant="h5">
-              {application.jobApplicant.name}
-            </Typography>
-          </Grid>
-          <Grid item>
-            <Rating
-              value={
-                application.jobApplicant.rating !== -1
-                  ? application.jobApplicant.rating
-                  : null
-              }
-              readOnly
+      <div className="max-w-4xl mx-auto p-4 md:p-6 ">
+        <div className="bg-white rounded-lg shadow-md p-6 transform transition-transform hover:scale-[1.02]">
+          <div className="flex flex-col md:flex-row items-start md:items-center gap-4">
+            <img
+              src={application.profileImage}
+              alt={application.jobApplicant.name}
+              className="w-20 h-20 rounded-full object-cover"
+              onError={(e) => {
+                e.target.src =
+                  "https://as2.ftcdn.net/v2/jpg/09/19/12/41/1000_F_919124155_HimrmR9EZBEYl8TfyrdnynW8Lc2zQDjj.jpg";
+              }}
             />
-          </Grid>
-          <Grid item>Job Title: {application.job.title}</Grid>
-          <Grid item>Role: {application.job.jobType}</Grid>
-          <Grid item>Applied On: {appliedOn.toLocaleDateString()}</Grid>
-          <Grid item>
-            SOP: {application.sop !== "" ? application.sop : "Not Submitted"}
-          </Grid>
-          <Grid item>
-            {application.jobApplicant.skills.map((skill) => (
-              <Chip label={skill} style={{ marginRight: "2px" }} />
-            ))}
-          </Grid>
-        </Grid>
-        <Grid item container direction="column" xs={3}>
-          <Grid item>
-            <Button
-              variant="contained"
-              className={classes.statusBlock}
-              color="primary"
-              // onClick={() => getResume()}
+            <div className="flex-1">
+              <h1 className="text-2xl font-bold text-gray-800">
+                {application.jobApplicant.name}
+              </h1>
+              <p className="text-md text-gray-600">
+                {application.jobApplicant.jobTitle}
+              </p>
+              <p className="text-sm text-gray-500 italic">
+                Joining On:{" "}
+                {new Date(application.dateOfJoining).toLocaleDateString()}
+              </p>
+            </div>
+          </div>
+
+          <div className="my-6">
+            <h2 className="text-xl font-semibold text-gray-800 mb-2">
+              Statement of Purpose
+            </h2>
+            <p className="text-gray-700 leading-relaxed indent-4">
+              {application.sop !== "" ? application.sop : "Not Submitted"}
+            </p>
+          </div>
+
+          <div className="mb-6">
+            <h2 className="text-xl font-semibold text-gray-800 mb-3">Skills</h2>
+            <div className="flex flex-wrap gap-2">
+              {application.jobApplicant.skills.map((skill, index) => (
+                <span
+                  key={index}
+                  className="px-3 py-1 bg-blue-100 text-blue-700 rounded-full text-sm font-medium"
+                >
+                  {skill}
+                </span>
+              ))}
+            </div>
+          </div>
+
+          <div className="flex flex-col sm:flex-row gap-3 mt-6">
+            <button
+              className="flex items-center justify-center gap-2 px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+              aria-label="Download Resume"
             >
+              {/* <FaDownload className="text-lg" /> */}
               <a
                 style={{
                   textDecoration: "none",
                   color: "white",
                 }}
-                className={classes.statusBlock}
+                // className={classes.statusBlock}
                 href={application.jobApplicant.resume}
                 download
               >
                 Download Resume
               </a>
-            </Button>
-          </Grid>
-          <Grid item container xs>
-            {/* {buttonSet[application.status]} */}
-            <Button
-              variant="contained"
-              color="primary"
-              className={classes.statusBlock}
-              style={{
-                background: "#09BC8A",
-              }}
+            </button>
+            <button
+              className="flex items-center justify-center gap-2 px-4 py-2 bg-green-500 text-white rounded-md hover:bg-green-600 transition-colors focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2"
+              aria-label="End Job"
               onClick={() => {
                 setOpenEndJob(true);
               }}
             >
+              {/* <FaCheckCircle className="text-lg" /> */}
               End Job
-            </Button>
-          </Grid>
-          <Grid item>
-            <Button
-              variant="contained"
-              color="primary"
-              className={classes.statusBlock}
+            </button>
+            <button
+              className="flex items-center justify-center gap-2 px-4 py-2 bg-yellow-500 text-gray-800 rounded-md hover:bg-yellow-600 transition-colors focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:ring-offset-2"
+              aria-label="Rate Applicant"
               onClick={() => {
                 setOpen(true);
               }}
             >
+              {/* <FaStar className="text-lg" /> */}
               Rate Applicant
-            </Button>
-          </Grid>
-        </Grid>
-      </Grid>
+            </button>
+          </div>
+        </div>
+      </div>
       <Modal open={open} onClose={handleClose} className={classes.popupDialog}>
         <Paper
           style={{
@@ -796,7 +794,14 @@ const AcceptedApplicants = (props) => {
 
   return (
     <>
-      <Grid item style={{width: "93vw"}}>
+      <Grid
+        container
+        item
+        direction="column"
+        alignItems="center"
+        // className="bg-slate-900"
+        style={{ padding: "auto", minHeight: "90vh" }}
+      >
         <Grid
           style={{
             display: "flex",
@@ -806,8 +811,13 @@ const AcceptedApplicants = (props) => {
             margin: "2rem 0",
           }}
         >
-          <Grid item>
-            <Typography >All Applicants</Typography>
+          <Grid className="flex flex-col w-full my-10 align-start items-start">
+            <h2 className="text-4xl font-semibold text-gray-800">
+              Applicant Management Dashboard
+            </h2>
+            <h4 className="text-gray-600">
+              View, Manage, and Evaluate All Applicants in One Place
+            </h4>
           </Grid>
           <Grid item>
             <IconButton onClick={() => setFilterOpen(true)}>
@@ -816,9 +826,7 @@ const AcceptedApplicants = (props) => {
           </Grid>
         </Grid>
 
-        <Grid
-          class="boxOfContent"
-        >
+        <Grid class="boxOfContent" style={{ width: "100%" }}>
           {applications.length > 0 ? (
             applications.map((obj) => (
               <Grid item>

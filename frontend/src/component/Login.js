@@ -28,16 +28,16 @@ const useStyles = makeStyles((theme) => ({
   },
   inputBox: {
     width: "300px",
-    height: "50px"
+    height: "50px",
   },
   submitButton: {
     width: "100px",
   },
-  Pallete:{
+  Pallete: {
     primary: {
-      main: "#fefefe"
-    }
-  }
+      main: "#fefefe",
+    },
+  },
 }));
 
 const Login = (props) => {
@@ -93,7 +93,8 @@ const Login = (props) => {
           setPopup({
             open: true,
             severity: "success",
-            message: "Logged in successfully",
+            message:
+              "Shabaash! System ne bola hai, 'Logged in successfully!' Ab karlo duniya muthi mein!",
           });
           console.log(response);
         })
@@ -117,25 +118,36 @@ const Login = (props) => {
   return loggedin ? (
     <Redirect to="/" />
   ) : (
-    <Paper class="loginSection" elevation={4} rounded-md className={classes.body}>
+    <Paper
+      class="loginSection"
+      elevation={4}
+      rounded-md
+      className={
+        classes.body +
+        "flex flex-col items-center justify-center px-6 py-8 mx-auto  lg:py-14"
+      }
+    >
       <Grid container direction="column" spacing={4} alignItems="center">
         <Grid item>
-          <Typography class="loginHeading" variant="h2" component="h2">
-            Login
-          </Typography>
+          <h2 className="text-2xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
+            Welcome back
+          </h2>
         </Grid>
         <Grid item>
-          <EmailInput class="userinput"
+          <EmailInput
+            class="userinput"
             label="Email"
             value={loginDetails.email}
             onChange={(event) => handleInput("email", event.target.value)}
             inputErrorHandler={inputErrorHandler}
+            // Arrey yaar, email sahi format mein likho! Aisa lag raha hai kabootar se bhejna padega phir se!
             handleInputError={handleInputError}
             className={classes.inputBox}
           />
         </Grid>
         <Grid item>
-          <PasswordInput class="userinput"
+          <PasswordInput
+            class="userinput"
             label="Password"
             value={loginDetails.password}
             onChange={(event) => handleInput("password", event.target.value)}
@@ -143,7 +155,8 @@ const Login = (props) => {
           />
         </Grid>
         <Grid item>
-          <Button class="userbutton"
+          <Button
+            class="userbutton"
             variant="contained"
             color="primary"
             onClick={() => handleLogin()}
@@ -153,10 +166,7 @@ const Login = (props) => {
           </Button>
         </Grid>
       </Grid>
-     
-      
     </Paper>
-   
   );
 };
 

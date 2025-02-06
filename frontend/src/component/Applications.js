@@ -3,18 +3,18 @@ import {
   Button,
   Chip,
   Grid,
-  IconButton,
-  InputAdornment,
+  // IconButton,
+  // InputAdornment,
   makeStyles,
   Paper,
-  TextField,
+  // TextField,
   Typography,
   Modal,
-  Slider,
-  FormControlLabel,
-  FormGroup,
-  MenuItem,
-  Checkbox,
+  // Slider,
+  // FormControlLabel,
+  // FormGroup,
+  // MenuItem,
+  // Checkbox,
 } from "@material-ui/core";
 import Rating from "@material-ui/lab/Rating";
 import axios from "axios";
@@ -120,28 +120,26 @@ const ApplicationTile = (props) => {
     setOpen(false);
   };
 
-  const colorSet = {
-    applied: "#3454D1",
-    shortlisted: "#DC851F",
-    accepted: "#09BC8A",
-    rejected: "#D1345B",
-    deleted: "#B49A67",
-    cancelled: "#FF8484",
-    finished: "#4EA5D9",
-  };
-
   return (
-    <Paper
-      class="border-2 rounded-md px-5 py-5 w-6/12"
-      className={classes.jobTileOuter}
-    >
-      <Grid class="job-card-container" className="flex flex-col">
+    <Grid class=" px-5 py-5 w-3/4" className={classes.jobTileOuter}>
+      {/* <Grid class="job-card-container" className="flex flex-col">
         <Grid direction="column">
           <Grid item>
-            <Typography class="cardTitle">{application.job.title} </Typography>
-            <Typography class="cardSubTitle"> Company Name </Typography>
+            <h2 className="flex text-2xl font-semibold text-gray-800 ">
+              {application.job.title}
+            </h2>
+            <span className="flex text-sm font-semibold text-gray-700 ">
+              {" "}
+              {"Company Name"}{" "}
+            </span>
           </Grid>
-          <Grid class="cardSubTitle">
+
+          <hr className="my-4" />
+
+          <Grid
+            // class="cardSubTitle"
+            className="flex text-sm font-semibold text-gray-600 gap-4"
+          >
             <span item>Posted By: {application.recruiter.name}</span>
             <span item>Role : {application.job.jobType}</span>
             <span item>
@@ -149,7 +147,10 @@ const ApplicationTile = (props) => {
             </span>
           </Grid>
 
-          <Grid class="cardSubTitle">
+          <Grid
+            // class="cardSubTitle"
+            className="flex text-sm font-semibold text-gray-600 gap-4"
+          >
             <span>
               Duration :{" "}
               {application.job.duration !== 0
@@ -170,29 +171,91 @@ const ApplicationTile = (props) => {
           ) : null}
         </Grid>
         <Grid item container direction="column" class="w-full" xs={3}>
-          <Grid item class="flex my-4 py-2 w-2/12">
-            <Grid item class="primaryButton  my-4">
+          <Grid item class="flex my-4 py-2 w-auto">
+            <span className="bg-blue-600 text-white font-semibold rounded-md py-3 px-4">
               Status: {application.status.toUpperCase()}
-            </Grid>
+            </span>
           </Grid>
-          {application.status === "accepted" ||
-          application.status === "finished" ? (
-            <Grid item>
-              <Button
-                variant="contained"
-                color="primary"
-                className={classes.statusBlock}
-                onClick={() => {
-                  fetchRating();
-                  setOpen(true);
-                }}
-              >
-                Rate Job
-              </Button>
-            </Grid>
-          ) : null}
+
+         
         </Grid>
-      </Grid>
+      </Grid> */}
+      <div
+        style={{
+          boxShadow: "0 3px 10px rgb(0,0,0,0.2)",
+        }}
+        className="max-w-lg w-full  text-white rounded-2xl p-6 transition-all duration-300 transform hover:scale-105 hover:shadow-2xl"
+      >
+        <div className="flex flex-col space-y-4">
+          {/* Job Title and Company */}
+          <div className="flex justify-between items-center">
+            <h2 className="text-2xl font-semibold text-gray-600">
+              {" "}
+              {application.job.title}
+            </h2>
+            <p className="text-lg font-medium text-gray-600">
+              {" "}
+              {application.job.companyName || "Company Name"}
+            </p>
+          </div>
+
+          {/* Posted By and Role */}
+          <div className="flex justify-between text-sm text-gray-600">
+            <p>Posted By: {application.recruiter.name}</p>
+            <p>Role: {application.job.jobType}</p>
+          </div>
+
+          {/* Salary and Duration */}
+          <div className="flex justify-between text-sm text-gray-600">
+            <p>Salary: ₹ {application.job.salary} per month</p>
+            <p>
+              Duration:{" "}
+              {application.job.duration !== 0
+                ? `${application.job.duration} month`
+                : `Flexible`}{" "}
+            </p>
+          </div>
+
+          {/* Applied On and Joined On */}
+          <div className="flex justify-between text-sm text-gray-600">
+            <p>Applied On: {appliedOn.toLocaleDateString()}</p>
+            <p>Joined On: 2/2/2025</p>
+          </div>
+
+          {/* Skills */}
+          <div className="flex flex-wrap gap-2 mt-4">
+            {application.job.skillsets.map((skill) => (
+              <Chip label={skill} style={{ marginRight: "2px" }} />
+            ))}
+          </div>
+
+          {/* Status */}
+          <div className="flex justify-between items-center mt-4">
+            <span className="text-sm text-gray-600">Status: </span>
+            <span className="bg-green-500 px-4 py-2 text-sm font-semibold rounded-lg">
+              {application.status.toUpperCase()}
+            </span>
+          </div>
+          <>
+            {application.status === "accepted" ||
+            application.status === "finished" ? (
+              <span item>
+                <Button
+                  style={{ background: "#3b82f6", color: "white" }}
+                  className=" px-4 py-2 text-sm font-semibold rounded-lg"
+                  onClick={() => {
+                    fetchRating();
+                    setOpen(true);
+                  }}
+                >
+                  Rate Job
+                </Button>
+              </span>
+            ) : null}
+          </>
+        </div>
+      </div>
+
       <Modal open={open} onClose={handleClose} className={classes.popupDialog}>
         <Paper
           style={{
@@ -223,7 +286,7 @@ const ApplicationTile = (props) => {
           </Button>
         </Paper>
       </Modal>
-    </Paper>
+    </Grid>
   );
 };
 
@@ -261,27 +324,23 @@ const Applications = (props) => {
     <Grid
       container
       item
-      direction="column"
-      alignItems="center"
-      style={{ padding: "30px", minHeight: "93vh" }}
+      //  className={class}
     >
-      {/* <Grid item> */}
-      <Typography variant="h2">Applications</Typography>
-      {/* </Grid> */}
+      <Grid className="flex flex-col w-full my-10 align-start items-start">
+        <h2 className="text-4xl font-semibold text-gray-800">Applications </h2>
+        <span className="text-gray-600">
+          Track all the jobs you've applied for in one place.
+        </span>
+      </Grid>
       <Grid
-        container
-        item
-        xs
-        direction="column"
-        style={{ width: "80%" }}
-        alignItems="stretch"
-        justify="center"
+        // justify="center"
+        className="flex flex-wrap rounded-2xl w-full bg-white h-full p-4 "
       >
         {applications.length > 0 ? (
           applications.map((obj) => (
-            <Grid item>
+            <>
               <ApplicationTile application={obj} />
-            </Grid>
+            </>
           ))
         ) : (
           <Typography variant="h5" style={{ textAlign: "center" }}>

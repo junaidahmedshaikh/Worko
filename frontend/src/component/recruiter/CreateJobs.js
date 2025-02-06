@@ -8,15 +8,30 @@ import {
   makeStyles,
   TextField,
   MenuItem,
+  InputLabel,
 } from "@material-ui/core";
+
 import axios from "axios";
 import ChipInput from "material-ui-chip-input";
 
 import { SetPopupContext } from "../../App";
 
 import apiList from "../../lib/apiList";
+import { BorderAll } from "@material-ui/icons";
 
 const useStyles = makeStyles((theme) => ({
+  root: {
+    "& .MuiOutlinedInput-root": {
+      "&:hover": {
+        borderColor: "green", // Change border color on hover
+      },
+    },
+    "& .MuiInputLabel-root": {
+      "&:hover": {
+        color: "red", // Change label color on hover
+      },
+    },
+  },
   body: {
     height: "inherit",
   },
@@ -27,13 +42,31 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: "center",
     // padding: "30px",
   },
+  label: {
+    color: "#374151",
+    fontWeight: 600,
+    marginTop: "0.5rem" /* 8px */,
+    marginBottom: "0.5rem" /* 8px */,
+    fontSize: "1rem" /* 16px */,
+    lineHeight: "1.5rem" /* 24px */,
+  },
+  inputBox: {
+    outline: "none",
+    borderRadius: "20px",
+    // "&:input:hover": {
+    //   background: "green",
+    // },
+    // "&:focus": {
+    //   background: "red",
+    // },
+    // boxShadow: "0px 5px 10px 0px rgba(0, 0, 0, 0.5)",
+  },
 }));
 
-const CreateJobs = (props ) => {
+const CreateJobs = (props) => {
   const classes = useStyles();
   const setPopup = useContext(SetPopupContext);
 
-  
   const [jobDetails, setJobDetails] = useState({
     title: "",
     maxApplicants: 100,
@@ -106,220 +139,310 @@ const CreateJobs = (props ) => {
         item
         direction="column"
         alignItems="center"
-        class="createJobsGrid"
-        style={{ padding: "30px", minHeight: "93vh", width: "" }}
+        className="bg-slate-900"
+        style={{ padding: "auto", minHeight: "90vh" }}
       >
-        <Grid item>
-          {/* <Typography variant="h2">Add Job</Typography> */}
-          <Typography class="mainHeading"> Unlock Opportunities: Post Jobs Today!</Typography>
+        <Grid className="flex flex-col w-full my-10 align-start items-start">
+          <h2 className="text-4xl font-semibold text-gray-800">
+            Unlock Opportunities: Post Jobs Today!
+          </h2>
+          <h4 className="text-gray-600">Create Job</h4>
         </Grid>
         <Grid item container xs direction="column" justify="center">
-          <Grid item>
+          <Grid item className="w-full p-4 bg-white">
             <Paper
               style={{
+                background: "white",
                 padding: "20px",
                 outline: "none",
                 display: "flex",
                 flexDirection: "column",
                 justifyContent: "center",
                 alignItems: "center",
+                gap: "40px",
               }}
             >
               <Grid
-                container
-                direction="column"
-                alignItems="stretch"
-                spacing={3}
+                style={{
+                  width: "100%",
+                  padding: "20px",
+                  outline: "none",
+                  display: "flex",
+                  flexDirection: "row",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  gap: "40px",
+                }}
               >
-                <Grid item>
-                  <TextField
-                    label="Title"
-                    value={jobDetails.title}
-                    onChange={(event) =>
-                      handleInput("title", event.target.value)
-                    }
-                    variant="outlined"
-                    fullWidth
-                  />
-                </Grid>
-                
-                <Grid item>
-                  <ChipInput
-                    className={classes.inputBox}
-                    label="Skills"
-                    variant="outlined"
-                    helperText="Press enter to add skills"
-                    value={jobDetails.skillsets}
-                    onAdd={(chip) =>
-                      setJobDetails({
-                        ...jobDetails,
-                        skillsets: [...jobDetails.skillsets, chip],
-                      })
-                    }
-                    onDelete={(chip, index) => {
-                      let skillsets = jobDetails.skillsets;
-                      skillsets.splice(index, 1);
-                      setJobDetails({
-                        ...jobDetails,
-                        skillsets: skillsets,
-                      });
-                    }}
-                    fullWidth
-                  />
-                </Grid>
-                
-                <Grid item>
-                  <TextField
-                    label="Salary"
-                    type="number"
-                    variant="outlined"
-                    value={jobDetails.salary}
-                    onChange={(event) => {
-                      handleInput("salary", event.target.value);
-                    }}
-                    InputProps={{ inputProps: { min: 0 } }}
-                    fullWidth
-                  />
-                </Grid>
+                <Grid
+                  container
+                  direction="column"
+                  alignItems="stretch"
+                  className="gap-4"
+                  spacing={3}
+                >
+                  {/* Job Title */}
+                  <Grid item>
+                    <h3 className={classes.label}> Job Title</h3>
+                    <TextField
+                      // className="focus:outline-none focus:border-none"
+                      className={classes.inputBox}
+                      id="outlined-basic"
+                      // label="Title"
+                      hiddenLabel
+                      placeholder="Software Engineer..."
+                      variant="standard"
+                      value={jobDetails.title}
+                      onChange={(event) =>
+                        handleInput("title", event.target.value)
+                      }
+                      fullWidth
+                    />
+                  </Grid>
+                  {/* Skill */}
+                  <Grid item>
+                    <h3 className={classes.label}> Skills</h3>
+                    <ChipInput
+                      className={classes.inputBox}
+                      placeholder="React.js, TailwindCSS..."
+                      // variant="outlined"
+                      helperText="Press enter to add skills"
+                      value={jobDetails.skillsets}
+                      onAdd={(chip) =>
+                        setJobDetails({
+                          ...jobDetails,
+                          skillsets: [...jobDetails.skillsets, chip],
+                        })
+                      }
+                      onDelete={(chip, index) => {
+                        let skillsets = jobDetails.skillsets;
+                        skillsets.splice(index, 1);
+                        setJobDetails({
+                          ...jobDetails,
+                          skillsets: skillsets,
+                        });
+                      }}
+                      fullWidth
+                    />
+                  </Grid>
+                  {/* Salary */}
+                  <Grid item>
+                    <h3 className={classes.label}> Salary</h3>
+                    <TextField
+                      type="number"
+                      className={classes.inputBox}
+                      variant="standard"
+                      placeholder="1,00,000"
+                      value={jobDetails.salary}
+                      onChange={(event) => {
+                        handleInput("salary", event.target.value);
+                      }}
+                      InputProps={{ inputProps: { min: 0 } }}
+                      fullWidth
+                    />
+                  </Grid>
 
-                {/* Company Details */}
-                <Grid item>
-                  <TextField
-                    label="Company Name"
-                    value={jobDetails.companyName}
-                    onChange={(event) =>
-                      handleInput("companyName", event.target.value)
-                    }
-                    variant="outlined"
-                    fullWidth
-                  /> </Grid>
-                <Grid item>
-                  <TextField
-                    label="Address"
-                    value={jobDetails.address}
-                    onChange={(event) =>
-                      handleInput("address", event.target.value)
-                    }
-                    variant="outlined"
-                    fullWidth
-                    placeholder="City, State, Country"
-                  />
+                  {/* Job Requirements */}
+                  <Grid item>
+                    <h3 className={classes.label}> Job Requirements</h3>
+
+                    <ChipInput
+                      className={classes.inputBox}
+                      placeholder=""
+                      variant="outlined"
+                      helperText="Press enter to add skills"
+                      value={jobDetails.requirements}
+                      onAdd={(chip) =>
+                        setJobDetails({
+                          ...jobDetails,
+                          requirements: [...jobDetails.requirements, chip],
+                        })
+                      }
+                      onDelete={(chip, index) => {
+                        let requirements = jobDetails.requirements;
+                        requirements.splice(index, 1);
+                        setJobDetails({
+                          ...jobDetails,
+                          requirements: requirements,
+                        });
+                      }}
+                      fullWidth
+                    />
+                  </Grid>
                 </Grid>
-                
-                <Grid item>
-                  <ChipInput
-                    className={classes.inputBox}
-                    label="Requirements"
-                    variant="outlined"
-                    helperText="Press enter to add skills"
-                    value={jobDetails.requirements}
-                    onAdd={(chip) =>
-                      setJobDetails({
-                        ...jobDetails,
-                        requirements: [...jobDetails.requirements, chip],
-                      })
-                    }
-                    onDelete={(chip, index) => {
-                      let requirements = jobDetails.requirements;
-                      requirements.splice(index, 1);
-                      setJobDetails({
-                        ...jobDetails,
-                        requirements: requirements,
-                      });
-                    }}
-                    fullWidth
-                  />
-                </Grid>
+                <Grid
+                  container
+                  direction="column"
+                  alignItems="stretch"
+                  className="gap-4"
+                  spacing={3}
+                >
+                  {/* Company Name */}
+                  <Grid item>
+                    <h3 className={classes.label}> Company Name</h3>
+                    <TextField
+                      className={classes.inputBox}
+                      placeholder="Google"
+                      value={jobDetails.companyName}
+                      onChange={(event) =>
+                        handleInput("companyName", event.target.value)
+                      }
+                      variant="standard"
+                      fullWidth
+                    />{" "}
+                  </Grid>
+                  {/* Address */}
+                  <Grid item>
+                    <h3 className={classes.label}> Address</h3>
 
-                <Grid item>
-                  <TextField
-                    label="Application Deadline"
-                    type="datetime-local"
-                    value={jobDetails.deadline}
-                    onChange={(event) => {
-                      handleInput("deadline", event.target.value);
+                    <TextField
+                      className={classes.inputBox}
+                      label="Mumbai, India"
+                      value={jobDetails.address}
+                      onChange={(event) =>
+                        handleInput("address", event.target.value)
+                      }
+                      variant="standard"
+                      fullWidth
+                      placeholder="City, State, Country"
+                    />
+                  </Grid>
+                  {/* Job Type & Duration Container */}
+                  <Grid
+                    item
+                    style={{
+                      display: "grid",
+                      // flexDirection: "row",
+                      gridTemplateColumns: "1fr 1fr",
                     }}
-                    InputLabelProps={{
-                      shrink: true,
-                    }}
-                    variant="outlined"
-                    fullWidth
-                  />
-                </Grid>
-
-
-
-                <Grid item style={{display: "flex", flexDirection: "row"}}>
-                  {/* Job Type Input */}
-                  <TextField 
-                    select
-                    label="Job Type"
-                    variant="outlined"
-                    value={jobDetails.jobType}
-                    onChange={(event) => {
-                      handleInput("jobType", event.target.value);
-                    }}
-                    fullWidth
                   >
-                    <MenuItem value="Full Time">Full Time</MenuItem>
-                    <MenuItem value="Part Time">Part Time</MenuItem>
-                    <MenuItem value="Work From Home">Work From Home</MenuItem>
-                  </TextField>
-                  {/* Job Duration */}
-                  <TextField style={{marginLeft: ".5rem"}}
-                    select
-                    label="Duration"
-                    variant="outlined"
-                    value={jobDetails.duration}
-                    onChange={(event) => {
-                      handleInput("duration", event.target.value);
+                    {/* Job Type Input */}
+                    <Grid item>
+                      <h3 className={classes.label}> Job Type</h3>
+
+                      <TextField
+                        select
+                        variant="standard"
+                        value={jobDetails.jobType}
+                        onChange={(event) => {
+                          handleInput("jobType", event.target.value);
+                        }}
+                        fullWidth
+                      >
+                        <MenuItem value="Full Time">Full Time</MenuItem>
+                        <MenuItem value="Part Time">Part Time</MenuItem>
+                        <MenuItem value="Work From Home">
+                          Work From Home
+                        </MenuItem>
+                      </TextField>
+                    </Grid>
+                    {/* Job Duration */}
+                    <Grid item>
+                      <h3 className={classes.label}> Duration</h3>
+
+                      <TextField
+                        style={{ marginLeft: ".5rem" }}
+                        select
+                        variant="standard"
+                        value={jobDetails.duration}
+                        onChange={(event) => {
+                          handleInput("duration", event.target.value);
+                        }}
+                        fullWidth
+                      >
+                        <MenuItem value={0}>Flexible</MenuItem>
+                        <MenuItem value={1}>1 Month</MenuItem>
+                        <MenuItem value={2}>2 Months</MenuItem>
+                        <MenuItem value={3}>3 Months</MenuItem>
+                        <MenuItem value={4}>4 Months</MenuItem>
+                        <MenuItem value={5}>5 Months</MenuItem>
+                        <MenuItem value={6}>6 Months</MenuItem>
+                      </TextField>
+                    </Grid>
+                    {/* Application Deadline */}
+                    {/* <Grid item>
+                      <h3 className={classes.label}> Application Deadline</h3>
+
+                      <TextField
+                        type="datetime-local"
+                        className={classes.textField}
+                        value={jobDetails.deadline}
+                        onChange={(event) => {
+                          handleInput("deadline", event.target.value);
+                        }}
+                        InputLabelProps={{
+                          shrink: true,
+                        }}
+                        variant="standard"
+                        fullWidth
+                      />
+                    </Grid> */}
+                  </Grid>
+                  {/* Positions Available & Maximum Number Of Applicants Container*/}
+                  <Grid
+                    item
+                    style={{
+                      display: "grid",
+                      // flexDirection: "row",
+                      gap: "5px",
+                      gridTemplateColumns: "1fr 1fr 1fr",
                     }}
-                    fullWidth
                   >
-                    <MenuItem value={0}>Flexible</MenuItem>
-                    <MenuItem value={1}>1 Month</MenuItem>
-                    <MenuItem value={2}>2 Months</MenuItem>
-                    <MenuItem value={3}>3 Months</MenuItem>
-                    <MenuItem value={4}>4 Months</MenuItem>
-                    <MenuItem value={5}>5 Months</MenuItem>
-                    <MenuItem value={6}>6 Months</MenuItem>
-                  </TextField>
-                </Grid>
-               
-                
-                
-               
-                <Grid item style={{display: "flex", flexDirection: "row"}}>
-                  <TextField 
-                    label="Positions Available"
-                    type="number"
-                    variant="outlined"
-                    value={jobDetails.maxPositions}
-                    onChange={(event) => {
-                      handleInput("maxPositions", event.target.value);
-                    }}
-                    InputProps={{ inputProps: { min: 1 } }}
-                    fullWidth
-                  />
-                <TextField style={{marginLeft: ".5rem"}}
-                    label="Maximum Number Of Applicants"
-                    type="number"
-                    variant="outlined"
-                    value={jobDetails.maxApplicants}
-                    onChange={(event) => {
-                      handleInput("maxApplicants", event.target.value);
-                    }}
-                    InputProps={{ inputProps: { min: 1 } }}
-                    fullWidth
-                  />
+                    <Grid item>
+                      <h3 className={classes.label}> Positions</h3>
+                      <TextField
+                        type="number"
+                        variant="standard"
+                        value={jobDetails.maxPositions}
+                        onChange={(event) => {
+                          handleInput("maxPositions", event.target.value);
+                        }}
+                        InputProps={{ inputProps: { min: 1 } }}
+                        fullWidth
+                      />
+                    </Grid>
+
+                    <Grid item>
+                      <h3 className={classes.label}> Max Applicants</h3>
+                      <TextField
+                        // className={classes.label}
+
+                        // label="Maximum Number Of Applicants"
+                        type="number"
+                        variant="standard"
+                        value={jobDetails.maxApplicants}
+                        onChange={(event) => {
+                          handleInput("maxApplicants", event.target.value);
+                        }}
+                        InputProps={{ inputProps: { min: 1 } }}
+                        fullWidth
+                      />
+                    </Grid>
+                    <Grid item>
+                      <h3 className={classes.label}> Application Deadline</h3>
+
+                      <TextField
+                        type="datetime-local"
+                        className={classes.textField}
+                        value={jobDetails.deadline}
+                        onChange={(event) => {
+                          handleInput("deadline", event.target.value);
+                        }}
+                        InputLabelProps={{
+                          shrink: true,
+                        }}
+                        variant="standard"
+                        fullWidth
+                      />
+                    </Grid>
+                  </Grid>
                 </Grid>
               </Grid>
-              <Button
-                class="primaryButton"
-                onClick={() => handleUpdate()}
-              >
-               Post a Job
-              </Button>
+              <Grid className="flex items-center justify-center">
+                <Button class="primaryButton" onClick={() => handleUpdate()}>
+                  Post a Job
+                </Button>
+              </Grid>
             </Paper>
           </Grid>
         </Grid>

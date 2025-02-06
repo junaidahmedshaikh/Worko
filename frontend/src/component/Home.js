@@ -1,4 +1,6 @@
 import { useState, useEffect, useContext } from "react";
+// import { TextField, InputAdornment, IconButton } from "@mui/material";
+// import SearchIcon from "@mui/icons-material/Search";
 import {
   Button,
   Chip,
@@ -108,39 +110,49 @@ const JobTile = (props) => {
   return (
     <Paper className={classes.jobTileOuter} class=" shadow my-2 py-5 px-5">
       <Grid container class="flex flex-col">
-        <Grid container item xs={9} spacing={1} direction="column">
+        <Grid
+          container
+          item
+          xs={9}
+          spacing={1}
+          direction="column"
+          className="w-full"
+        >
           <Grid item>
             <Grid item>
               <Typography class="font-medium text-xl my-2 text-black">
                 {job.title}
               </Typography>
             </Grid>
-            <Grid item class="cardSubTitle mb-2 flex flex-col">
-              {/* <span class="">{cName}</span> */}
+            <Grid item class="cardSubTitle mb-2 flex flex-row gap-4">
+              <span class="">{cName}</span>
               <span>Posted By : {job.recruiter.name}</span>
             </Grid>
           </Grid>
 
-          <Grid></Grid>
+          <Grid className="w-full my-4">
+            {" "}
+            <hr />
+          </Grid>
 
-          <Grid class="cardSubTitle w-screen my-2">
-            <span>
-              {" "}
-              <i class="fa-solid fa-briefcase"></i> {job.jobType}{" "}
-            </span>
+          <Grid class="cardSubTitle text-gray-600 font-normal flex gap-4 w-full my-2">
             <span>
               <i class="fa-solid fa-indian-rupee-sign"></i> {job.salary} PA
             </span>{" "}
             <span>
               <i class="fa-solid fa-location-dot "> </i> {cAddress}{" "}
             </span>
+            <span>
+              {" "}
+              <i class="fa-solid fa-briefcase"></i> {job.jobType}{" "}
+            </span>
           </Grid>
           <Grid item class="cardSubTitle">
             {" "}
-            <span>
+            {/* <span>
               {" "}
               <i class="fa-solid fa-user-graduate"></i> {job.jobType}{" "}
-            </span>
+            </span> */}
           </Grid>
         </Grid>
         {/* Button of Card  */}
@@ -675,46 +687,81 @@ const Home = (props) => {
         <Grid
           item
           container
-          direction="column"
-          justify="center"
-          alignItems="center"
+          // direction="column"
+          // justify="center"
+          // alignItems="center"
+          className=" py-4 px-2 flex flex-row justify-between rounded-lg"
         >
-          <TextField
-            label="Search Jobs"
-            value={searchOptions.query}
-            onChange={(event) =>
-              setSearchOptions({
-                ...searchOptions,
-                query: event.target.value,
-              })
-            }
-            onKeyPress={(ev) => {
-              if (ev.key === "Enter") {
-                getData();
-              }
-            }}
-            InputProps={{
-              endAdornment: (
-                <InputAdornment>
-                  <IconButton onClick={() => getData()}>
-                    <SearchIcon />
-                  </IconButton>
-                </InputAdornment>
-              ),
-            }}
-            style={{ width: "100vw" }}
-            variant="outlined"
-          />
-        </Grid>
-        <Grid item className="flex justify-between  w-full items-center mx-8">
-          <Typography>Results</Typography>
+          <div>
+            <TextField
+              sx={{
+                "& .MuiOutlinedInput-root": {
+                  outline: "none", // Remove outline
+                  borderColor: "transparent", // Default no border
+                  backgroundColor: "#fff", // Default background color
 
+                  // Hover Styles
+                  "&:hover .MuiOutlinedInput-notchedOutline": {
+                    outline: "none", // Remove outline on hover
+                    borderColor: "rgba(129, 140, 248)", // Light blue border on hover
+                    boxShadow: "0 0 0 5px rgb(129 140 248 / 30%)", // Hover box shadow
+                  },
+
+                  // Focus Styles
+                  "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
+                    outline: "none", // Remove outline on focus
+                    borderColor: "rgba(129, 140, 248)", // Light blue border on focus
+                    boxShadow: "0 0 0 5px rgb(129 140 248 / 30%)", // Focus box shadow
+                  },
+                },
+
+                // Default styles for the outline
+                "& .MuiOutlinedInput-notchedOutline": {
+                  borderColor: "transparent", // No border by default
+                },
+              }}
+              value={searchOptions.query}
+              onChange={(event) =>
+                setSearchOptions({
+                  ...searchOptions,
+                  query: event.target.value,
+                })
+              }
+              onKeyPress={(ev) => {
+                if (ev.key === "Enter") {
+                  getData();
+                }
+              }}
+              InputProps={{
+                endAdornment: (
+                  <InputAdornment>
+                    <IconButton
+                      className="bg-blue-500 "
+                      onClick={() => getData()}
+                    >
+                      <span className="text-sm bg-blue-500 py-3 px-3 text-white rounded-2xl">
+                        Find Job
+                      </span>
+                      {/* <SearchIcon /> */}
+                    </IconButton>
+                  </InputAdornment>
+                ),
+              }}
+              id="custom-input"
+              label="Search Jobs"
+              variant="outlined"
+            />
+          </div>
           <Grid item>
+            <span className="text-gray-600">Filter: </span>
             <IconButton onClick={() => setFilterOpen(true)}>
               <FilterListIcon />
             </IconButton>
           </Grid>
         </Grid>
+        {/* <Grid item className="flex justify-between  w-full items-center mx-8">
+          <Typography>Results</Typography>
+        </Grid> */}
 
         <Grid container item class="boxOfContent">
           {jobs.length > 0 ? (

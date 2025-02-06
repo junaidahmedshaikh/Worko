@@ -4,6 +4,7 @@ import { Grid, makeStyles } from "@material-ui/core";
 
 import Welcome, { ErrorPage } from "./component/Welcome";
 import Navbar from "./component/Navbar";
+// import Navigation from "./component/Navigation";
 import Login from "./component/Login";
 import Logout from "./component/Logout";
 import Signup from "./component/Signup";
@@ -16,7 +17,7 @@ import JobApplications from "./component/recruiter/JobApplications";
 import AcceptedApplicants from "./component/recruiter/AcceptedApplicants";
 import RecruiterProfile from "./component/recruiter/Profile";
 import MessagePopup from "./lib/MessagePopup";
-import isAuth, { userType } from "./lib/isAuth";
+import isAuth, { userType } from "./lib/isAuth"; // isAuth rm
 import Course from "./component/Course";
 
 const useStyles = makeStyles((theme) => ({
@@ -29,6 +30,9 @@ const useStyles = makeStyles((theme) => ({
     paddingTop: "64px",
     boxSizing: "border-box",
     width: "100%",
+    // background: "red",
+    paddingLeft: "150px",
+    paddingRight: "150px",
   },
 }));
 

@@ -4,16 +4,16 @@ import {
   Chip,
   Grid,
   IconButton,
-  InputAdornment,
+  // InputAdornment,
   makeStyles,
   Paper,
-  TextField,
+  // TextField,
   Typography,
   Modal,
-  Slider,
+  // Slider,
   FormControlLabel,
-  FormGroup,
-  MenuItem,
+  // FormGroup,
+  // MenuItem,
   Checkbox,
   Avatar,
 } from "@material-ui/core";
@@ -383,9 +383,9 @@ const ApplicationTile = (props) => {
 
   const colorSet = {
     applied: "#3454D1",
-    shortlisted: "#DC851F",
+    shortlisted: "#16a34a",
     accepted: "#09BC8A",
-    rejected: "#D1345B",
+    rejected: "#dc2626 ",
     deleted: "#B49A67",
     cancelled: "#FF8484",
     finished: "#4EA5D9",
@@ -462,10 +462,12 @@ const ApplicationTile = (props) => {
       <>
         <Grid item xs>
           <Button
-            className={classes.statusBlock}
+            // className={classes.statusBlock}
+            className="rounded-lg bg-green-600 px-4 py-2  font-medium text-white transition-colors hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2"
             style={{
               background: colorSet["shortlisted"],
               color: "#ffffff",
+              marginRight: "5px",
             }}
             onClick={() => updateStatus("shortlisted")}
           >
@@ -575,90 +577,126 @@ const ApplicationTile = (props) => {
       </>
     ),
   };
-
+  const skillColors = [
+    "bg-blue-100 text-blue-800",
+    "bg-green-100 text-green-800",
+    "bg-purple-100 text-purple-800",
+    "bg-yellow-100 text-yellow-800",
+    "bg-pink-100 text-pink-800",
+  ];
   return (
-    <Paper className={classes.jobTileOuter} elevation={3}>
-      <Grid container>
-        <Grid
-          item
-          xs={2}
-          style={{
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-          }}
-        >
-          <Avatar
-            src={`${application.jobApplicant.profile}`}
-            className={classes.avatar}
-          />
-        </Grid>
-        <Grid container item xs={7} spacing={1} direction="column">
-          <Grid item>
-            <Typography variant="h5">
-              {application.jobApplicant.name}
-            </Typography>
-          </Grid>
-          <Grid item>
-            <Rating
-              value={
-                application.jobApplicant.rating !== -1
-                  ? application.jobApplicant.rating
-                  : null
-              }
-              readOnly
-            />
-          </Grid>
-          <Grid item>Applied On: {appliedOn.toLocaleDateString()}</Grid>
-          <Grid item>
-            Education:{" "}
-            {application.jobApplicant.education
-              .map((edu) => {
-                return `${edu.institutionName} (${edu.startYear}-${
-                  edu.endYear ? edu.endYear : "Ongoing"
-                })`;
-              })
-              .join(", ")}
-          </Grid>
-          <Grid item>
-            SOP: {application.sop !== "" ? application.sop : "Not Submitted"}
-          </Grid>
-          <Grid item>
-            Job fit score:{" "}
-            <span className="font-semibold">{resumeAnalysis?.fit_score}</span>
-          </Grid>
-          <Grid item>
-            {application.jobApplicant.skills.map((skill) => (
-              <Chip label={skill} style={{ marginRight: "2px" }} />
-            ))}
-          </Grid>
-        </Grid>
-        <Grid item container direction="column" xs={3}>
-          <Grid item>
-            <Button
-              variant="contained"
-              className={classes.statusBlock}
-              color="primary"
-              // onClick={() => getResume()}
-            >
-              <a
-                style={{
-                  textDecoration: "none",
-                  color: "white",
-                }}
-                className={classes.statusBlock}
+    <Paper
+      elevation={3}
+      className="min-h-screen bg-gray-100 p-4 dark:bg-gray-800"
+    >
+      <Grid
+        container
+        className="mx-auto max-w-3xl transform transition-all hover:scale-[1.01]"
+      >
+        <div className="overflow-hidden rounded-xl bg-white shadow-lg dark:bg-gray-900">
+          {/* Header */}
+          <div className="border-b border-gray-200 p-6 dark:border-gray-700">
+            <div className="flex flex-col justify-between space-y-2 sm:flex-row sm:items-center sm:space-y-0">
+              <h2 className="text-2xl font-bold text-gray-900 dark:text-white">
+                {application.jobApplicant.name}
+              </h2>
+              <span className="text-sm text-gray-500 dark:text-gray-400">
+                Applied on {appliedOn.toLocaleDateString()}
+              </span>
+            </div>
+          </div>
+
+          {/* Body */}
+          <div className="p-6">
+            {/* SOP */}
+            <div className="mb-6">
+              <h3 className="mb-2 text-lg font-semibold text-gray-900 dark:text-white">
+                Statement of Purpose
+              </h3>
+              <div className="relative">
+                <p className="text-gray-700 dark:text-gray-300">
+                  {application.sop !== "" ? application.sop : "Not Submitted"}
+                </p>
+                {/* <button
+                  onClick={() => setIsExpanded(!isExpanded)}
+                  className="mt-2 flex items-center text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300"
+                >
+                  {isExpanded ? (
+                    <>
+                      Show Less <FaChevronUp className="ml-1" />
+                    </>
+                  ) : (
+                    <>
+                      Read More <FaChevronDown className="ml-1" />
+                    </>
+                  )}
+                </button> */}
+              </div>
+            </div>
+
+            {/* Education */}
+            <div className="mb-6">
+              <h3 className="mb-2 text-lg font-semibold text-gray-900 dark:text-white">
+                Education
+              </h3>
+              <div className="space-y-3">
+                {application.jobApplicant.education.map((edu, index) => (
+                  <div
+                    key={index}
+                    className="rounded-lg bg-gray-50 p-3 dark:bg-gray-800"
+                  >
+                    <p className="font-medium text-gray-900 dark:text-white">
+                      {edu.degree}
+                    </p>
+                    <p className="text-sm text-gray-600 dark:text-gray-400">
+                      {edu.institution} • {edu.year}
+                    </p>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Skills */}
+            <div>
+              <h3 className="mb-2 text-lg font-semibold text-gray-900 dark:text-white">
+                Skills
+              </h3>
+              <div className="flex flex-wrap gap-2">
+                {application.jobApplicant.skills.map((skill, index) => (
+                  <span
+                    key={index}
+                    className={`rounded-full px-3 py-1 text-sm ${
+                      skillColors[index % skillColors.length]
+                    }`}
+                  >
+                    {skill}
+                  </span>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          {/* Action Buttons */}
+          <div className="border-t border-gray-200 p-6 dark:border-gray-700">
+            <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
+              <Grid item container xs>
+                {buttonSet[application.status]}
+              </Grid>
+              <button
+                onClick={() => getResume()}
                 href={application.jobApplicant.resume}
-                download
+                className="flex items-center justify-center rounded-lg bg-blue-600 px-4 py-2 font-medium text-white transition-colors hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+                aria-label="Download resume"
               >
+                {/* <FaDownload className="mr-2" /> */}
                 Download Resume
-              </a>
-            </Button>
-          </Grid>
-          <Grid item container xs>
-            {buttonSet[application.status]}
-          </Grid>
-        </Grid>
+              </button>
+            </div>
+          </div>
+        </div>
       </Grid>
+
+      {/* Reject Confirmation Modal */}
       <Modal open={open} onClose={handleClose} className={classes.popupDialog}>
         <Paper
           style={{
@@ -783,22 +821,30 @@ const JobApplications = (props) => {
         alignItems="center"
         style={{ padding: "30px", minHeight: "93vh" }}
       >
-        <Grid item>
-          <Typography variant="h2">Applications </Typography>
+        <Grid item className="flex justify-between items-center w-full">
+          <Grid className="flex flex-col w-full my-10 align-start items-start">
+            <h2 className="text-4xl font-semibold text-gray-800">
+              All Applicants{" "}
+            </h2>
+            <span className="text-gray-600">
+              View and manage the list of all applicants for the current job
+              openings.
+            </span>
+          </Grid>
+          <Grid item className="flex items-center text-gray-600">
+            <span className="text-gray-600">Filter: </span>
+            <IconButton onClick={() => setFilterOpen(true)}>
+              <FilterListIcon />
+            </IconButton>
+          </Grid>
         </Grid>
-        <Grid item>
-          <IconButton onClick={() => setFilterOpen(true)}>
-            <FilterListIcon />
-          </IconButton>
-        </Grid>
+
         <Grid
           container
           item
-          xs
-          direction="column"
-          style={{ width: "100%" }}
           alignItems="stretch"
-          justify="center"
+          style={{ width: "100%" }}
+          class="layoutTemplate"
         >
           {applications.length > 0 ? (
             applications.map((obj) => (

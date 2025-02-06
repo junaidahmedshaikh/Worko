@@ -1,5 +1,16 @@
 import { useState, useEffect, useContext } from "react";
 import {
+  FaPencilAlt,
+  FaTrash,
+  FaUsers,
+  FaBuilding,
+  FaMapMarkerAlt,
+  FaClock,
+  FaBriefcase,
+  FaDollarSign,
+} from "react-icons/fa";
+import { MdCancel } from "react-icons/md";
+import {
   Button,
   Chip,
   Grid,
@@ -153,225 +164,216 @@ const JobTile = (props) => {
 
   console.log("Company Name " + job.companyName);
   return (
-    <Paper
-      class="w-6/12 shadow-md my-2 py-5 px-3 rounded-md"
-      className={classes.jobTileOuter}
-    >
-      <Grid>
-        <Grid>
-          <Grid item>
-            <Typography class="font-medium text-xl text-black">
+    <Paper className="max-w-2xl mx-auto my-2">
+      <Grid className="bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300 p-6 relative">
+        <div className="space-y-4">
+          {/* Header Section */}
+          <div className="space-y-2">
+            <h2
+              className="text-2xl font-bold text-gray-800 truncate"
+              title={job.title}
+            >
               {job.title}
-            </Typography>
-          </Grid>
+            </h2>
+            <div className="flex items-center space-x-2 text-gray-600">
+              <FaBuilding className="text-gray-500" />
+              <span className="font-medium">{job.companyName}</span>
+            </div>
+            <div className="flex items-center space-x-2 text-gray-500">
+              <FaMapMarkerAlt />
+              <span>{job.address}</span>
+            </div>
+          </div>
 
-          <Grid class="cardSubTitle">
-            <span class="">
-              {" "}
-              <i class="fa-solid fa-location-dot "> </i> {job.address}{" "}
-            </span>
-            <span class="">
-              <i class="fa-solid fa-building"></i> {job.companyName}
-            </span>
-          </Grid>
+          {/* Job Details */}
+          <div className="grid grid-cols-2 gap-4 py-4 border-t border-b border-gray-100">
+            <div className="flex items-center space-x-2">
+              <FaBriefcase className="text-blue-500" />
+              <span>{job.jobType}</span>
+            </div>
+            <div className="flex items-center space-x-2">
+              <FaDollarSign className="text-green-500" />
+              <span>{job.salary}</span>
+            </div>
+            <div className="flex items-center space-x-2">
+              <FaUsers className="text-purple-500" />
+              <span>{job.maxApplicants} Applicants</span>
+            </div>
+            <div className="flex items-center space-x-2">
+              <FaClock className="text-orange-500" />
+              <span>Posted {postedOn.toLocaleDateString()}</span>
+            </div>
+          </div>
 
-          {/* <Grid item>
-            <Rating value={job.rating !== -1 ? job.rating : null} readOnly />
-          </Grid> */}
-
-          <Grid class="cardSubTitle">
-            <span>
-              {" "}
-              <i class="fa-solid fa-child"></i> {job.jobType}{" "}
-            </span>
-            <span>
-              {" "}
-              <i class="fa-solid fa-indian-rupee-sign"></i> {job.salary} per
-              month{" "}
-            </span>
-            <span item>
-              <i class="fa-solid fa-timeline"></i>{" "}
-              {job.duration !== 0 ? `${job.duration} month` : `Flexible`}{" "}
-              <i class="fa-solid fa-timer"></i>
-            </span>
-          </Grid>
-
-          <Grid class="cardSubTitle my-5">
-            <span> Number of Applicants: {job.maxApplicants} </span> {"       "}
-            <span item>
-              {" "}
-              Remaining Number of Positions:{" "}
-              {job.maxPositions - job.acceptedCandidates}{" "}
-            </span>
-          </Grid>
-          <Grid class="cardSubTitle" item>
-            Date Of Posting: {postedOn.toLocaleDateString()}
-          </Grid>
-
-          <Grid item xs class="flex my-5">
-            <Grid class="flex justify-items-start w-6/12">
-              <Button
-                class="w-auto"
-                className={classes.statusBlock}
-                onClick={() => handleClick(`/job/applications/${job._id}`)}
-              >
-                View Applications
-              </Button>
-            </Grid>
-            <Grid item xs class="flex w-6/12 justify-evenly">
-              <Button
-                class=""
-                className={classes.statusBlock}
+          {/* Action Buttons */}
+          <div className="flex justify-between items-center pt-4">
+            <div className="space-x-2">
+              <button
                 onClick={() => {
                   setOpenUpdate(true);
                 }}
+                className="px-4 py-2 text-sm font-medium text-gray-600 bg-gray-100 rounded-md hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-gray-300 transition-colors duration-200"
+                aria-label="Edit job listing"
               >
+                <FaPencilAlt className="inline-block mr-2" />
                 Edit
-              </Button>
-              <Button
-                class=""
-                className={classes.statusBlock}
+              </button>
+              <button
                 onClick={() => {
                   setOpen(true);
                 }}
+                className="px-4 py-2 text-sm font-medium text-white bg-red-500 rounded-md hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-300 transition-colors duration-200"
+                aria-label="Delete job listing"
               >
+                <FaTrash className="inline-block mr-2" />
                 Delete
-              </Button>
-            </Grid>
-          </Grid>
-        </Grid>
-      </Grid>
+              </button>
+            </div>
+            <button
+              onClick={() => handleClick(`/job/applications/${job._id}`)}
+              className="px-6 py-2 text-sm font-medium text-white bg-blue-600 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-300 transition-colors duration-200"
+              aria-label="View job application"
+            >
+              View Application
+            </button>
+          </div>
+        </div>
 
-      <Modal open={open} onClose={handleClose} className={classes.popupDialog}>
-        <Paper
-          style={{
-            padding: "20px",
-            outline: "none",
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "center",
-            minWidth: "30%",
-            alignItems: "center",
-          }}
+        {/* Delete Confirmation Modal */}
+        <Modal
+          open={open}
+          onClose={handleClose}
+          className={classes.popupDialog}
         >
-          <Typography variant="h4" style={{ marginBottom: "10px" }}>
-            Are you sure?
-          </Typography>
-          <Grid container justify="center" spacing={5}>
-            <Grid item>
-              <Button
-                variant="contained"
-                color="secondary"
-                style={{ padding: "10px 50px" }}
-                onClick={() => handleDelete()}
-              >
-                Delete
-              </Button>
-            </Grid>
-            <Grid item>
-              <Button
-                variant="contained"
-                color="primary"
-                style={{ padding: "10px 50px" }}
-                onClick={() => handleClose()}
-              >
-                Cancel
-              </Button>
-            </Grid>
-          </Grid>
-        </Paper>
-      </Modal>
-      <Modal
-        open={openUpdate}
-        onClose={handleCloseUpdate}
-        className={classes.popupDialog}
-      >
-        <Paper
-          style={{
-            padding: "20px",
-            outline: "none",
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "center",
-            minWidth: "30%",
-            alignItems: "center",
-          }}
-        >
-          <Typography variant="h4" style={{ marginBottom: "10px" }}>
-            Update Details
-          </Typography>
-          <Grid
-            container
-            direction="column"
-            spacing={3}
-            style={{ margin: "10px" }}
+          <Paper
+            style={{
+              padding: "20px",
+              outline: "none",
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "center",
+              minWidth: "30%",
+              alignItems: "center",
+            }}
           >
-            <Grid item>
-              <TextField
-                label="Application Deadline"
-                type="datetime-local"
-                value={jobDetails.deadline.substr(0, 16)}
-                onChange={(event) => {
-                  handleInput("deadline", event.target.value);
-                }}
-                InputLabelProps={{
-                  shrink: true,
-                }}
-                variant="outlined"
-                fullWidth
-              />
+            <Typography variant="h4" style={{ marginBottom: "10px" }}>
+              Are you sure?
+            </Typography>
+            <Grid container justify="center" spacing={5}>
+              <Grid item>
+                <button
+                  onClick={() => handleDelete()}
+                  className="px-4 py-2 text-sm font-medium text-white bg-red-500 rounded-md hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-300 transition-colors duration-200"
+                  aria-label="Delete job listing"
+                >
+                  <FaTrash className="inline-block mr-2" />
+                  Delete
+                </button>
+              </Grid>
+              <Grid item>
+                <Button
+                  type="button"
+                  style={{ background: "#16a34a", color: "white" }}
+                  className="rounded-lg bg-green-600 px-4 py-2  font-medium text-white transition-colors hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2"
+                  onClick={() => handleClose()}
+                >
+                  <MdCancel className="inline-block mr-2" />
+                  Cancel
+                </Button>
+              </Grid>
             </Grid>
-            <Grid item>
-              <TextField
-                label="Maximum Number Of Applicants"
-                type="number"
-                variant="outlined"
-                value={jobDetails.maxApplicants}
-                onChange={(event) => {
-                  handleInput("maxApplicants", event.target.value);
-                }}
-                InputProps={{ inputProps: { min: 1 } }}
-                fullWidth
-              />
+          </Paper>
+        </Modal>
+        <Modal
+          open={openUpdate}
+          onClose={handleCloseUpdate}
+          className={classes.popupDialog}
+        >
+          <Paper
+            style={{
+              padding: "20px",
+              outline: "none",
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "center",
+              minWidth: "30%",
+              alignItems: "center",
+            }}
+          >
+            <h1 style={{ marginBottom: "10px" }}>Update Details</h1>
+            <Grid
+              container
+              direction="column"
+              spacing={3}
+              style={{ margin: "10px" }}
+            >
+              <Grid item>
+                <TextField
+                  label="Application Deadline"
+                  type="datetime-local"
+                  value={jobDetails.deadline.substr(0, 16)}
+                  onChange={(event) => {
+                    handleInput("deadline", event.target.value);
+                  }}
+                  InputLabelProps={{
+                    shrink: true,
+                  }}
+                  variant="outlined"
+                  fullWidth
+                />
+              </Grid>
+              <Grid item>
+                <TextField
+                  label="Maximum Number Of Applicants"
+                  type="number"
+                  variant="outlined"
+                  value={jobDetails.maxApplicants}
+                  onChange={(event) => {
+                    handleInput("maxApplicants", event.target.value);
+                  }}
+                  InputProps={{ inputProps: { min: 1 } }}
+                  fullWidth
+                />
+              </Grid>
+              <Grid item>
+                <TextField
+                  label="Positions Available"
+                  type="number"
+                  variant="outlined"
+                  value={jobDetails.maxPositions}
+                  onChange={(event) => {
+                    handleInput("maxPositions", event.target.value);
+                  }}
+                  InputProps={{ inputProps: { min: 1 } }}
+                  fullWidth
+                />
+              </Grid>
             </Grid>
-            <Grid item>
-              <TextField
-                label="Positions Available"
-                type="number"
-                variant="outlined"
-                value={jobDetails.maxPositions}
-                onChange={(event) => {
-                  handleInput("maxPositions", event.target.value);
-                }}
-                InputProps={{ inputProps: { min: 1 } }}
-                fullWidth
-              />
+            <Grid container justify="center" spacing={5}>
+              <Grid item>
+                <Button
+                  variant="contained"
+                  color="secondary"
+                  style={{ padding: "10px 50px" }}
+                  onClick={() => handleJobUpdate()}
+                >
+                  Update
+                </Button>
+              </Grid>
+              <Grid item>
+                <Button
+                  variant="contained"
+                  color="primary"
+                  style={{ padding: "10px 50px" }}
+                  onClick={() => handleCloseUpdate()}
+                >
+                  Cancel
+                </Button>
+              </Grid>
             </Grid>
-          </Grid>
-          <Grid container justify="center" spacing={5}>
-            <Grid item>
-              <Button
-                variant="contained"
-                color="secondary"
-                style={{ padding: "10px 50px" }}
-                onClick={() => handleJobUpdate()}
-              >
-                Update
-              </Button>
-            </Grid>
-            <Grid item>
-              <Button
-                variant="contained"
-                color="primary"
-                style={{ padding: "10px 50px" }}
-                onClick={() => handleCloseUpdate()}
-              >
-                Cancel
-              </Button>
-            </Grid>
-          </Grid>
-        </Paper>
-      </Modal>
+          </Paper>
+        </Modal>
+      </Grid>
     </Paper>
   );
 };
@@ -817,10 +819,10 @@ const MyJobs = (props) => {
       <Grid
         container
         item
-        class="mainGridContainer"
         direction="column"
         alignItems="center"
-        style={{ padding: "30px", minHeight: "93vh" }}
+        // className="bg-slate-900"
+        style={{ padding: "auto", minHeight: "90vh", paddingTop: "20px" }}
       >
         <Grid
           item
@@ -828,39 +830,51 @@ const MyJobs = (props) => {
           direction="column"
           justify="center"
           alignItems="center"
+          // style={{ width: "100%" }}
         >
-          {/* <Grid item xs>
-
-          </Grid> */}
-          <Grid item xs>
-            <TextField
-              label="Search Jobs"
-              value={searchOptions.query}
-              onChange={(event) =>
-                setSearchOptions({
-                  ...searchOptions,
-                  query: event.target.value,
-                })
-              }
-              onKeyPress={(ev) => {
-                if (ev.key === "Enter") {
-                  getData();
-                }
-              }}
-              InputProps={{
-                endAdornment: (
-                  <InputAdornment>
-                    <IconButton onClick={() => getData()}>
-                      <SearchIcon />
-                    </IconButton>
-                  </InputAdornment>
-                ),
-              }}
-              style={{ width: "100vw" }}
-              variant="outlined"
-            />
-          </Grid>
           <Grid
+            item
+            container
+            className=" py-4 px-2 flex flex-row justify-between rounded-lg"
+          >
+            <Grid item xs>
+              <TextField
+                label="Search Jobs"
+                value={searchOptions.query}
+                onChange={(event) =>
+                  setSearchOptions({
+                    ...searchOptions,
+                    query: event.target.value,
+                  })
+                }
+                onKeyPress={(ev) => {
+                  if (ev.key === "Enter") {
+                    getData();
+                  }
+                }}
+                InputProps={{
+                  endAdornment: (
+                    <InputAdornment>
+                      <IconButton onClick={() => getData()}>
+                        <SearchIcon />
+                      </IconButton>
+                    </InputAdornment>
+                  ),
+                }}
+                // style={{ width: "100vw" }}
+                variant="outlined"
+              />
+            </Grid>
+
+            <Grid item className="flex items-center text-gray-600">
+              <span className="text-gray-600">Filter: </span>
+              <IconButton class="p-1" onClick={() => setFilterOpen(true)}>
+                <FilterListIcon className="" />
+              </IconButton>
+            </Grid>
+          </Grid>
+
+          {/* <Grid
             item
             // style={{
             //   display: "flex",
@@ -876,10 +890,10 @@ const MyJobs = (props) => {
               <Typography>Filter</Typography>
               <FilterListIcon />
             </IconButton>
-          </Grid>
+          </Grid> */}
         </Grid>
 
-        <Box class="boxOfContent">
+        <Box class="boxOfContent" style={{ width: "100%" }}>
           <Grid direction="column" alignItems="stretch" justify="center">
             {jobs.length > 0 ? (
               jobs.map((job) => {

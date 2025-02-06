@@ -331,12 +331,17 @@ const Login = (props) => {
   return loggedin ? (
     <Redirect to="/" />
   ) : (
-    <Paper elevation={3} className={classes.body}>
+    <Paper
+      elevation={3}
+      className={
+        "flex flex-col items-center justify-center px-6 py-8 mx-auto  lg:py-14"
+      }
+    >
       <Grid container direction="column" spacing={4} alignItems="center">
         <Grid item>
-          <Typography class="loginHeading"  variant="h3" component="h2">
-            Signup
-          </Typography>
+          <h2 className="text-2xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
+            Create an account
+          </h2>
         </Grid>
         <Grid item>
           <TextField
@@ -352,26 +357,32 @@ const Login = (props) => {
             <MenuItem value="applicant">Applicant</MenuItem>
             <MenuItem value="recruiter">Recruiter</MenuItem>
           </TextField>
-
-          
-
         </Grid>
         <Grid item>
           <TextField
+            id="outlined-basic"
             label="Name"
+            variant="outlined"
             value={signupDetails.name}
             onChange={(event) => handleInput("name", event.target.value)}
-            className={classes.inputBox}
+            className={
+              classes.inputBox +
+              " mb-2 text-sm font-medium text-gray-900 hover:border-none hover:outline-none focus:outline-none"
+            }
+            // className=
             error={inputErrorHandler.name.error}
             helperText={inputErrorHandler.name.message}
             onBlur={(event) => {
               if (event.target.value === "") {
-                handleInputError("name", true, "Name is required");
+                handleInputError(
+                  "name",
+                  true,
+                  "Arrey bhai, apna naam toh likh do zara, kahani aage badhegi tabhi!"
+                );
               } else {
                 handleInputError("name", false, "");
               }
             }}
-            variant="outlined"
           />
         </Grid>
         <Grid item>
@@ -397,7 +408,11 @@ const Login = (props) => {
             helperText={inputErrorHandler.password.message}
             onBlur={(event) => {
               if (event.target.value === "") {
-                handleInputError("password", true, "Password is required");
+                handleInputError(
+                  "password",
+                  true,
+                  "Aur haan, ek dum secret sa password bhi likh do, mission wala feel aayega!"
+                );
               } else {
                 handleInputError("password", false, "");
               }
@@ -415,7 +430,7 @@ const Login = (props) => {
                 className={classes.inputBox}
                 label="Skills"
                 variant="outlined"
-                helperText="Press enter to add skills"
+                helperText="Zara apne skills likh do, bhai! Talent chhupana paap hai!"
                 onChange={(chips) =>
                   setSignupDetails({
                     ...signupDetails,
@@ -461,7 +476,7 @@ const Login = (props) => {
           </>
         ) : (
           <>
-            <Grid item style={{ width: "100%" }}>
+            {/* <Grid item style={{ width: "100%" }}>
               <TextField
                 label="Bio (upto 250 words)"
                 multiline
@@ -472,22 +487,24 @@ const Login = (props) => {
                 onChange={(event) => {
                   if (
                     event.target.value.split(" ").filter(function (n) {
-                      return n != "";
+                      return n !== "";
                     }).length <= 250
                   ) {
                     handleInput("bio", event.target.value);
                   }
                 }}
               />
-            </Grid>
-            <Grid item>
+            </Grid> */}
+            {/* <Grid item>
               <PhoneInput
                 class="userinput"
                 country={"in"}
                 value={phone}
-                onChange={(phone) => setPhone(phone)}
+                onChange={(no) => {
+                  setPhone(no);
+                }}
               />
-            </Grid>
+            </Grid> */}
           </>
         )}
 
@@ -505,6 +522,12 @@ const Login = (props) => {
           >
             Signup
           </Button>
+        </Grid>
+        <Grid item>
+          <span>Already have an account? </span>
+          <a href="/login" className="text-blue-800">
+            Login here
+          </a>
         </Grid>
       </Grid>
     </Paper>

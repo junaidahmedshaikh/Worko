@@ -1,4 +1,4 @@
- {/* <Grid container direction="column" alignItems="stretch" spacing={3}>
+ <!-- {/* <Grid container direction="column" alignItems="stretch" spacing={3}>
               <Grid item>
                 <TextField
                   label="Name"
@@ -51,4 +51,4 @@
               onClick={() => handleUpdate()}
             >
               Update Details
-            </Button> */}
+            </Button> */} -->
