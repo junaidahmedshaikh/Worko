@@ -165,19 +165,17 @@ const Profile = (props) => {
     return currentJob.fit_score > prevJob.fit_score ? currentJob : prevJob;
   }, resumeAnalysis?.[0]);
 
-  console.log("🚀 ~ Profile ~ filteredListings:", bestFitListing);
   const [profileDetails, setProfileDetails] = useState({
     name: "",
-    surename: "",
     email: "",
-    phone: "",
     education: [],
-    experience: [],
     skills: [],
-    socialMedia: [],
+    companyInfo: [],
+    socialMediaLinks: {},
     resume: "",
-    profile: "",
+    profileImage: "",
   });
+  console.log("🚀 ~ Profile ~ filteredListings:", bestFitListing);
 
   const getResumeAnalysis = () => {
     axios
@@ -295,17 +293,18 @@ const Profile = (props) => {
       });
     setOpen(false);
   };
-  const companyName = "Open to Work";
-  const startDate = "11/11/2022";
-  const endDate = "30/12/2023";
-  const jobTitle = "Frontend Developer";
-  const department = "Designer Department";
-  let firstName = "Junaid";
-  let lastName = "Shaikh";
-  let emailAddress = "avinash@gmail.com";
-  let phoneNo = 8850094860;
-  let profileLink =
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c1/Google_%22G%22_logo.svg/1024px-Google_%22G%22_logo.svg.png";
+
+  // const companyName = "Open to Work";
+  // const startDate = "11/11/2022";
+  // const endDate = "30/12/2023";
+  // const jobTitle = "Frontend Developer";
+  // const department = "Designer Department";
+  // let firstName = "Junaid";
+  // let lastName = "Shaikh";
+  // let emailAddress = "avinash@gmail.com";
+  // let phoneNo = 8850094860;
+  // let profileLink =
+  //   "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c1/Google_%22G%22_logo.svg/1024px-Google_%22G%22_logo.svg.png";
 
   // Projects Details
   // const projectDetails = [
@@ -786,7 +785,7 @@ const Profile = (props) => {
                 <div className="flex justify-center mt-6">
                   <button
                     type="button"
-                    onClick={handleClose}
+                    onClick={handleUpdate}
                     className="bg-gradient-to-r bg-blue-500 text-white px-8 py-3 rounded-xl shadow-lg hover:bg-blue-600  transition duration-300"
                   >
                     Save Changes

@@ -8,18 +8,11 @@ const path = require("path");
 
 // MongoDB
 mongoose
-    .connect(
-        "mongodb+srv://fakeforasuslaptop:addyjames@cluster0.djtfynf.mongodb.net/",
-        {
-
-            useNewUrlParser: true,
-            useUnifiedTopology: true,
-            useCreateIndex: true,
-            useFindAndModify: false,
-        }
-    )
-    .then((res) => console.log("Connected to DB"))
-    .catch((err) => console.log(err));
+  .connect(
+    "mongodb+srv://fakeforasuslaptop:addyjames@cluster0.djtfynf.mongodb.net/"
+  )
+  .then((res) => console.log("Connected to DB"))
+  .catch((err) => console.log(err));
 
 // initialising directories
 // if (!fs.existsSync("./public")) {
@@ -49,7 +42,7 @@ const apiRoutes = require("./routes/apiRoutes");
 console.log(auth, "asfdafs");
 
 app.get("/", (req, res) => {
-    res.send("root");
+  res.send("root");
 });
 
 app.use("/auth", auth);
@@ -58,5 +51,5 @@ app.use("/upload", require("./routes/uploadRoutes"));
 app.use("/host", require("./routes/downloadRoutes"));
 
 app.listen(port, () => {
-    console.log(`Server started on port ${port}!`);
+  console.log(`Server started on port ${port}!`);
 });

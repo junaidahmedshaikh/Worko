@@ -32,19 +32,21 @@ const Profile = (props) => {
   // const [open, setOpen] = useState(false);
   const [profileDetails, setProfileDetails] = useState({
     name: "",
-    surname: "",
     email: "",
-    phone: "",
-    aboutMe: "",
-    experience: "",
     contactNumber: "",
     bio: "",
-    companyName: "",
-    socialMedia: [],
+    companyInfo: [],
+    socialMediaLinks: {
+      linkedin: "",
+      github: "",
+      twitter: "",
+      instagram: "",
+    },
+    profileImage: "",
   });
 
   const [phone, setPhone] = useState("");
-  console.log("🚀 ~ Profile ~ profileDetails:", profileDetails);
+  console.log("profileDetails:", profileDetails);
 
   const handleInput = (key, value) => {
     setProfileDetails({
@@ -125,6 +127,17 @@ const Profile = (props) => {
       ...profileDetails,
       [e.target.name]: e.target.value,
     });
+
+    // console.log("e.target.value: ", e.target.value);
+  };
+
+  const handleSocialMediaLinks = (e) => {
+    setProfileDetails({
+      ...profileDetails,
+      socialMediaLinks: {
+        [e.target.name]: e.target.value,
+      },
+    });
   };
   // Model Handle Function
   const handleOpen = () => setOpen(true);
@@ -160,8 +173,9 @@ const Profile = (props) => {
                   {/* Social Media Icons Section */}
                   <div className="flex space-x-4 mt-4">
                     {/* LinkedIn */}
+
                     <a
-                      href={profileDetails.linkedin}
+                      href={profileDetails.socialMediaLinks.linkedin}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="text-blue-700 hover:text-blue-500 transition-all duration-300 transform hover:scale-110"
@@ -359,24 +373,24 @@ const Profile = (props) => {
                       type="text"
                       name="linkedin"
                       placeholder="LinkedIn URL"
-                      value={profileDetails.linkedin}
-                      onChange={handleChange}
+                      value={profileDetails.socialMediaLinks.linkedin}
+                      onChange={handleSocialMediaLinks}
                       className="w-full p-3 mt-2 mb-4 border rounded"
                     />
                     <input
                       type="text"
                       name="twitter"
                       placeholder="Twitter URL"
-                      value={profileDetails.twitter}
-                      onChange={handleChange}
+                      value={profileDetails.socialMediaLinks.twitter}
+                      onChange={handleSocialMediaLinks}
                       className="w-full p-3 mb-4 border rounded"
                     />
                     <input
                       type="text"
                       name="github"
                       placeholder="GitHub URL"
-                      value={profileDetails.github}
-                      onChange={handleChange}
+                      value={profileDetails.socialMediaLinks.github}
+                      onChange={handleSocialMediaLinks}
                       className="w-full p-3 mb-4 border rounded"
                     />
                   </div>
