@@ -2,9 +2,10 @@
 module.exports = {
   content: ["./src/**/*.{html,js}"],
   theme: {
-    extend: {
-    },
+    extend: {},
   },
   plugins: [],
-}
-
+  corePlugins: {
+    backdropFilter: true,
+  },
+};

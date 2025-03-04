@@ -274,7 +274,10 @@ const Profile = (props) => {
 
       {/* Model  */}
       {open && (
-        <div className="fixed inset-0 bg-gray-600 bg-opacity-50 flex justify-center  items-center">
+        <div
+          className="fixed inset-0 bg-gray-600 bg-opacity-50 flex justify-center  items-center"
+          style={{ backdropFilter: "blur(10px)" }}
+        >
           <div className="bg-white p-6 rounded-lg w-2/4 ">
             <div className="flex justify-between">
               <h2 className="text-xl font-semibold">Edit Profile</h2>

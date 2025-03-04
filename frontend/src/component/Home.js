@@ -679,7 +679,7 @@ const Home = (props) => {
       <Grid
         container
         item
-        class="mainGridContainer"
+        // class="mainGridContainer"
         direction="column"
         alignItems="center"
         style={{ padding: "30px", minHeight: "93vh" }}
@@ -741,8 +741,8 @@ const Home = (props) => {
                     >
                       <span className="text-sm bg-blue-500 py-3 px-3 text-white rounded-2xl">
                         Find Job
+                        {/* <SearchIcon /> */}
                       </span>
-                      {/* <SearchIcon /> */}
                     </IconButton>
                   </InputAdornment>
                 ),
@@ -763,7 +763,7 @@ const Home = (props) => {
           <Typography>Results</Typography>
         </Grid> */}
 
-        <Grid container item class="boxOfContent">
+        <Grid container item class="boxOfContent" style={{ width: "100%" }}>
           {jobs.length > 0 ? (
             jobs.map((job) => {
               return <JobTile job={job} />;

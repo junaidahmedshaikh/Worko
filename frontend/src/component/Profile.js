@@ -514,7 +514,10 @@ const Profile = (props) => {
       </Grid>
       {/* Modal For Updating Profile */}
       {open && (
-        <div className="fixed top-32  bg-transparent bg-opacity-80 flex justify-center items-center">
+        <div
+          className="fixed top-32 w-full bg-black/50 backdrop-blur-md flex justify-center items-center"
+          style={{ backdropFilter: "blur(10px)" }}
+        >
           <div className="bg-white p-8 rounded-2xl w-3/4 max-w-4xl shadow-2xl transform transition-all duration-300 ">
             <div className="flex justify-between items-center mb-6">
               <h2 className="text-gray-800 text-3xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r ">

@@ -37,8 +37,8 @@ const Navbar = (props) => {
       // position="fixed"
       // class=" MuiPaper-root MuiAppBar-root MuiAppBar-positionFixed mui-fixed MuiPaper-elevation"
       // className="bg-slate-600"
-      className="fixed inset-x-0 bg-white  z-30 mx-auto w-full max-w-screen-md border border-gray-100  py-3 shadow  md:rounded-3xl lg:max-w-screen-lg "
-      style={{ top: "25px" }}
+      className="fixed inset-x-0 bg-white  z-30 mx-auto py-4  border border-gray-100   shadow  md:rounded-3xl  "
+      style={{ top: "20px", width: "80%" }}
     >
       <Container maxWidth="lg">
         <div class="flex items-center justify-between ">
@@ -49,7 +49,10 @@ const Navbar = (props) => {
             // sx={{ color: "text.secondary" }}
           >
             {/* <img style={height: 10px} src="https://images.unsplash.com/photo-1575936123452-b67c3203c357?q=80&w=1000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8aW1hZ2V8ZW58MHx8MHx8fDA%3D"></img> */}
-            <span className="text-bold text-xl text-blue-500"> WORKO.</span>
+            <span className="text-bold text-xl font-bold text-blue-500">
+              {" "}
+              WORKO.
+            </span>
           </Typography>
           {isAuth() ? (
             userType() === "recruiter" ? (

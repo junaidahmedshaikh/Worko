@@ -324,17 +324,19 @@ const Applications = (props) => {
     <Grid
       container
       item
-      //  className={class}
+      direction="column"
+      alignItems="center"
+      style={{ minHeight: "90vh" }}
     >
-      <Grid className="flex flex-col w-full my-10 align-start items-start">
+      <div className="flex flex-col w-full  my-10 align-start items-start">
         <h2 className="text-4xl font-semibold text-gray-800">Applications </h2>
         <span className="text-gray-600">
           Track all the jobs you've applied for in one place.
         </span>
-      </Grid>
+      </div>
       <Grid
         // justify="center"
-        className="flex flex-wrap rounded-2xl w-full bg-white h-full p-4 "
+        className="flex flex-wrap rounded-2xl w-full bg-white  p-4 "
       >
         {applications.length > 0 ? (
           applications.map((obj) => (
@@ -343,9 +345,12 @@ const Applications = (props) => {
             </>
           ))
         ) : (
-          <Typography variant="h5" style={{ textAlign: "center" }}>
-            No Applications Found
-          </Typography>
+          <>
+            <Typography variant="h5" style={{ textAlign: "center" }}>
+              No Applications Found
+            </Typography>
+            <div></div>
+          </>
         )}
       </Grid>
     </Grid>

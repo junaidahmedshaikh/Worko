@@ -13,7 +13,10 @@ const Welcome = (props) => {
     >
       <div className="py-2 bg-gray-100 text-gray-900 min-h-screen">
         <main>
-          <div id="hero" className="px-10 pt-20 pb-40 lg:flex  items-center">
+          <div
+            id="hero"
+            className="bg-blue-50 rounded-xl px-10 pt-20 pb-40 lg:flex  items-center"
+          >
             <div className=" sm:px-2 md:px-10 md:flex flex-col lg:block lg:w-full lg:max-w-full lg:mr-8  pb-96">
               <div className="md:w-1/2  md:mr-10 lg:w-full lg:mr-0">
                 <h1 className="mx-auto flex max-w-full font-display font-medium tracking-tight text-gray-700">
