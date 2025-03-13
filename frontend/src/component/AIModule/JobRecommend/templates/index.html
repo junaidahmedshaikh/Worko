@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Job Recommendation</title>
+</head>
+<body>
+    <h1>Job Recommendation System</h1>
+    <form method="POST">
+        <label for="skills">Enter your skills:</label><br>
+        <input type="text" id="skills" name="skills" placeholder="e.g., Python, Data Science, Machine Learning"><br><br>
+        <button type="submit">Get Job Recommendations</button>
+    </form>
+    
+    {% if recommendations %}
+    <h2>Recommended Jobs:</h2>
+    <ul>
+        {% for job in recommendations %}
+            <li>{{ job }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+</body>
+</html>

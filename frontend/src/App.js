@@ -19,6 +19,7 @@ import RecruiterProfile from "./component/recruiter/Profile";
 import MessagePopup from "./lib/MessagePopup";
 import isAuth, { userType } from "./lib/isAuth"; // isAuth rm
 import Course from "./component/Course";
+import Job from "./component/AIModule/JobRecommend/Job";
 
 const useStyles = makeStyles((theme) => ({
   body: {
@@ -97,6 +98,10 @@ function App() {
               </Route>
               <Route exact path="/employees">
                 <AcceptedApplicants />
+              </Route>
+              {/* AI Routes  */}
+              <Route exact path="/jobrecommend">
+                <Job />
               </Route>
               <Route>
                 <ErrorPage />

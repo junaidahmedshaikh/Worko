@@ -1,0 +1,8 @@
+flask
+spacy
+pymupdf
+python-docx
+Flask
+PyMuPDF
+python-docx
+spacy

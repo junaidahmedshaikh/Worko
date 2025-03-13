@@ -1,7 +1,77 @@
 import { Grid, Typography } from "@material-ui/core";
 import { Link } from "react-router-dom";
 import { Feature } from "../constant";
+import { useHistory } from "react-router-dom";
+import { useState } from "react";
+import {
+  FaRobot,
+  FaFileAlt,
+  FaChartLine,
+  FaComments,
+  FaTachometerAlt,
+} from "react-icons/fa";
+import { IoMdCheckmarkCircleOutline } from "react-icons/io";
+import { BsArrowRight } from "react-icons/bs";
 const Welcome = (props) => {
+  const [activeTab, setActiveTab] = useState(null);
+  let history = useHistory();
+  // Define FAQs
+  const faqs = [
+    {
+      question: "How does the AI job recommendation system work?",
+      answer:
+        "The system analyzes your skills, experience, and preferences to suggest relevant job opportunities.",
+    },
+    {
+      question: "What is resume parsing?",
+      answer:
+        "Resume parsing automatically extracts key details from your uploaded resume to fill out your profile and applications.",
+    },
+    {
+      question: "Is my data secure?",
+      answer:
+        "Yes, Worko ensures data security through encryption and privacy-compliant policies.",
+    },
+  ];
+
+  const features = [
+    {
+      path: "/jobrecommend",
+      icon: <FaRobot className="text-4xl text-primary" />,
+      title: "AI Job Recommendations",
+      description: "Personalized job matches powered by advanced AI algorithms",
+    },
+    {
+      path: "/smartresumeparsing",
+      icon: <FaFileAlt className="text-4xl text-primary" />,
+      title: "Smart Resume Parsing",
+      description: "Automatic resume analysis and skill extraction",
+    },
+    {
+      path: "/intelligentmatching",
+      icon: <FaChartLine className="text-4xl text-primary" />,
+      title: "Intelligent Matching",
+      description: "ML-powered job compatibility scoring system",
+    },
+    {
+      path: "/applicationtracking",
+      icon: <FaTachometerAlt className="text-4xl text-primary" />,
+      title: "Application Tracking",
+      description: "Real-time insights and application progress monitoring",
+    },
+    {
+      path: "/chatbot",
+      icon: <FaComments className="text-4xl text-primary" />,
+      title: "AI Chatbot Support",
+      description: "24/7 intelligent conversation assistant",
+    },
+  ];
+
+  const handleClick = (location) => {
+    console.log(location);
+    history.push(location);
+  };
+
   return (
     <Grid
       container
@@ -397,32 +467,23 @@ const Welcome = (props) => {
                 </div>
 
                 <div className="flex flex-wrap my-12">
-                  {Feature.map((feat) => {
-                    return (
-                      <>
-                        <div className="w-full border-b md:w-1/2 md:border-r lg:w-1/3 p-8">
-                          <div className="flex items-center mb-6">
-                            <svg
-                              xmlns="http://www.w3.org/2000/svg"
-                              viewBox="0 0 32 32"
-                              width="20"
-                              height="20"
-                              fill="currentColor"
-                              className="h-6 w-6 text-blue-500"
-                            >
-                              <path d="M16 3C8.8 3 3 8.8 3 16s5.8 13 13 13 13-5.8 13-13c0-1.398-.188-2.793-.688-4.094L26.688 13.5c.2.8.313 1.602.313 2.5 0 6.102-4.898 11-11 11S5 22.102 5 16 9.898 5 16 5c3 0 5.695 1.195 7.594 3.094L25 6.688C22.7 4.386 19.5 3 16 3zm11.281 4.281L16 18.563l-4.281-4.282-1.438 1.438 5 5 .719.687.719-.687 12-12z"></path>
-                            </svg>
-                            <div className="ml-4 text-xl text-gray-700 font-semibold">
-                              {feat.name}
-                            </div>
-                          </div>
-                          <p className="leading-loose text-gray-500">
-                            {feat.desc}
-                          </p>
-                        </div>
-                      </>
-                    );
-                  })}
+                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    {features.map((feature, index) => (
+                      <div
+                        key={index}
+                        onClick={() => handleClick(feature.path)}
+                        className="p-6 rounded-lg shadow-lg cursor-pointer hover:shadow-xl transition-all duration-300 bg-card"
+                      >
+                        <div className="mb-4 text-blue-600">{feature.icon}</div>
+                        <h3 className="text-xl font-bold mb-2 text-gray-700">
+                          {feature.title}
+                        </h3>
+                        <p className="text-accent text-gray-500">
+                          {feature.description}
+                        </p>
+                      </div>
+                    ))}
+                  </div>
                 </div>
               </div>
             </div>
@@ -834,6 +895,38 @@ const Welcome = (props) => {
               </div>
             </div>
           </div>
+          {/* FAQ Section */}
+          <section className="py-20 bg-white">
+            <div className="container mx-auto px-4">
+              <h2 className="text-4xl font-bold text-center mb-16">
+                Frequently Asked Questions
+              </h2>
+              <div className="max-w-3xl mx-auto">
+                {faqs.map((faq, index) => (
+                  <div key={index} className="mb-4">
+                    <button
+                      className="w-full text-left p-4 bg-secondary rounded-lg font-semibold flex justify-between items-center"
+                      onClick={() =>
+                        setActiveTab(activeTab === index ? null : index)
+                      }
+                    >
+                      {faq.question}
+                      <BsArrowRight
+                        className={`transform transition-transform ${
+                          activeTab === index ? "rotate-90" : ""
+                        }`}
+                      />
+                    </button>
+                    {activeTab === index && (
+                      <div className="p-4 bg-white rounded-b-lg shadow-inner">
+                        <p>{faq.answer}</p>
+                      </div>
+                    )}
+                  </div>
+                ))}
+              </div>
+            </div>
+          </section>
         </main>
         <footer className="px-5 sm:px-10 md:px-20 py-8">
           <div className="flex flex-col items-center lg:flex-row-reverse justify-between">
